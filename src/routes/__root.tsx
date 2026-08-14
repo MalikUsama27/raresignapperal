@@ -92,14 +92,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Axiom Sportswear | Premium Sportswear Manufacturer & Exporter" },
+      { title: "Rare Signs Apparel | Premium Sportswear Manufacturer & Exporter" },
       {
         name: "description",
         content:
-          "Axiom Sportswear manufactures and exports premium custom sportswear, teamwear, fitness and private-label apparel to clubs, brands and distributors worldwide.",
+          "Rare Signs Apparel manufactures and exports premium custom sportswear, teamwear, fitness and private-label apparel to clubs, brands and distributors worldwide.",
       },
-      { name: "author", content: "Axiom Sportswear" },
-      { property: "og:site_name", content: "Axiom Sportswear" },
+      { name: "author", content: "Rare Signs Apparel" },
+      { property: "og:site_name", content: "Rare Signs Apparel" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

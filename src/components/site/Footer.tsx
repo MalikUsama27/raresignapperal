@@ -25,7 +25,7 @@ export function Footer() {
             <span className="grid size-8 place-items-center rounded-md bg-primary text-sm font-bold text-primary-foreground">
               A
             </span>
-            <span className="font-display text-base font-bold tracking-tight">AXIOM SPORTSWEAR</span>
+            <span className="font-display text-base font-bold tracking-tight">RARE SIGNS APPAREL</span>
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">{settings?.["footer_note"]}</p>
           <a
@@ -110,7 +110,7 @@ export function Footer() {
       <div className="border-t border-border">
         <div className="container-page flex flex-col gap-3 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {settings?.["company_legal_name"] ?? "Axiom Sportswear"}. All rights reserved.
+            © {new Date().getFullYear()} {settings?.["company_legal_name"] ?? "Rare Signs Apparel"}. All rights reserved.
           </p>
           <div className="flex gap-5">
             <Link to="/privacy-policy" className="hover:text-foreground">

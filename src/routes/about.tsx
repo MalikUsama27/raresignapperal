@@ -8,13 +8,13 @@ import { Reveal, SectionHeading } from "@/components/site/Reveal";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Axiom Sportswear | Sportswear Manufacturer in Sialkot" },
+      { title: "About Rare Signs Apparel | Sportswear Manufacturer in Sialkot" },
       {
         name: "description",
         content:
-          "Axiom Sportswear is a Sialkot-based sportswear manufacturer and exporter supplying clubs, brands and distributors in 40+ countries with custom teamwear and fitness apparel.",
+          "Rare Signs Apparel is a Sialkot-based sportswear manufacturer and exporter supplying clubs, brands and distributors in 40+ countries with custom teamwear and fitness apparel.",
       },
-      { property: "og:title", content: "About Axiom Sportswear | Manufacturer & Exporter" },
+      { property: "og:title", content: "About Rare Signs Apparel | Manufacturer & Exporter" },
       {
         property: "og:description",
         content: "Our story, capacity, certifications and the sourcing teams we supply worldwide.",
@@ -47,7 +47,7 @@ function AboutPage() {
       <PageHero
         eyebrow="About us"
         title="A manufacturing partner built around repeat orders"
-        description={`Founded in ${settings["founded_year"]}, Axiom Sportswear designs, manufactures and exports performance apparel from Sialkot, Pakistan — the same industrial cluster that supplies much of the world's professional sporting goods.`}
+        description={`Founded in ${settings["founded_year"]}, Rare Signs Apparel designs, manufactures and exports performance apparel from Sialkot, Pakistan — the same industrial cluster that supplies much of the world's professional sporting goods.`}
       />
 
       <section className="border-t border-border py-20 md:py-28">
@@ -74,7 +74,7 @@ function AboutPage() {
           <Reveal>
             <img
               src="/images/manufacturing.jpg"
-              alt="Axiom Sportswear factory floor in Sialkot"
+              alt="Rare Signs Apparel factory floor in Sialkot"
               width={1200}
               height={900}
               loading="lazy"

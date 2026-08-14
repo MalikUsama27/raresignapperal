@@ -4,13 +4,13 @@ import { PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy | Axiom Sportswear" },
+      { title: "Privacy Policy | Rare Signs Apparel" },
       {
         name: "description",
         content:
-          "How Axiom Sportswear collects, uses and protects the information you submit through inquiry forms, email and WhatsApp.",
+          "How Rare Signs Apparel collects, uses and protects the information you submit through inquiry forms, email and WhatsApp.",
       },
-      { property: "og:title", content: "Privacy Policy | Axiom Sportswear" },
+      { property: "og:title", content: "Privacy Policy | Rare Signs Apparel" },
       { property: "og:description", content: "How we handle inquiry data and business contact information." },
     ],
   }),
@@ -54,7 +54,7 @@ function PrivacyPage() {
       <PageHero
         eyebrow="Legal"
         title="Privacy policy"
-        description="This policy explains what information we collect when you contact Axiom Sportswear and how we use it."
+        description="This policy explains what information we collect when you contact Rare Signs Apparel and how we use it."
       />
       <section className="border-t border-border py-20 md:py-28">
         <div className="container-page max-w-3xl space-y-10">
@@ -65,7 +65,7 @@ function PrivacyPage() {
             </div>
           ))}
           <p className="border-t border-border pt-8 text-xs text-muted-foreground">
-            Questions about this policy? Email export@axiomsportswear.com.
+            Questions about this policy? Email export@raresignsapparel.com.
           </p>
         </div>
       </section>

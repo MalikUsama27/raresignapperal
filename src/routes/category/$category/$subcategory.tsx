@@ -19,12 +19,12 @@ export const Route = createFileRoute("/category/$category/$subcategory")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.name ?? "Range"} | ${loaderData?.category ?? "Sportswear"} | Axiom Sportswear` },
+      { title: `${loaderData?.name ?? "Range"} | ${loaderData?.category ?? "Sportswear"} | Rare Signs Apparel` },
       {
         name: "description",
         content: loaderData?.seo ?? "Custom manufactured sportswear range, exported worldwide from Sialkot.",
       },
-      { property: "og:title", content: `${loaderData?.name ?? "Range"} | Axiom Sportswear` },
+      { property: "og:title", content: `${loaderData?.name ?? "Range"} | Rare Signs Apparel` },
       { property: "og:description", content: loaderData?.seo ?? "Custom manufactured sportswear range." },
     ],
   }),

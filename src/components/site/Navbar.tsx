@@ -62,7 +62,7 @@ export function Navbar() {
               A
             </span>
             <span className="font-display text-base font-bold tracking-tight md:text-lg">
-              AXIOM<span className="text-primary"> SPORTSWEAR</span>
+              RARE SIGNS<span className="text-primary"> APPAREL</span>
             </span>
           </Link>
 

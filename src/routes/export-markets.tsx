@@ -11,13 +11,13 @@ export const Route = createFileRoute("/export-markets")({
   },
   head: () => ({
     meta: [
-      { title: "Export Markets | Global Sportswear Shipping | Axiom Sportswear" },
+      { title: "Export Markets | Global Sportswear Shipping | Rare Signs Apparel" },
       {
         name: "description",
         content:
-          "Axiom Sportswear exports custom apparel to 40+ countries across North America, Europe, the Middle East and Oceania with full documentation and air or sea freight.",
+          "Rare Signs Apparel exports custom apparel to 40+ countries across North America, Europe, the Middle East and Oceania with full documentation and air or sea freight.",
       },
-      { property: "og:title", content: "Global Export Markets | Axiom Sportswear" },
+      { property: "og:title", content: "Global Export Markets | Rare Signs Apparel" },
       {
         property: "og:description",
         content: "Shipping custom sportswear to clubs, brands and distributors on five continents.",

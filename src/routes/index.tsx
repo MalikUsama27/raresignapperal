@@ -15,13 +15,13 @@ export const Route = createFileRoute("/")({
   },
   head: () => ({
     meta: [
-      { title: "Axiom Sportswear | Custom Sportswear Manufacturer & Exporter" },
+      { title: "Rare Signs Apparel | Custom Sportswear Manufacturer & Exporter" },
       {
         name: "description",
         content:
           "Custom sportswear, teamwear, fitness and private-label apparel manufactured in Sialkot and exported to 40+ countries. Low MOQs, full customisation, 20-35 day production.",
       },
-      { property: "og:title", content: "Axiom Sportswear | Custom Sportswear Manufacturer & Exporter" },
+      { property: "og:title", content: "Rare Signs Apparel | Custom Sportswear Manufacturer & Exporter" },
       {
         property: "og:description",
         content:
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "Axiom Sportswear",
+          name: "Rare Signs Apparel",
           description:
             "Manufacturer and exporter of premium custom sportswear, teamwear and private-label apparel.",
           address: {
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/")({
             addressCountry: "PK",
           },
           telephone: "+92-333-7408106",
-          email: "export@axiomsportswear.com",
+          email: "export@raresignsapparel.com",
         }),
       },
     ],
@@ -110,7 +110,7 @@ function Home() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-                Axiom Sportswear manufactures competition-grade teamwear, fitness apparel and private-label ranges for
+                Rare Signs Apparel manufactures competition-grade teamwear, fitness apparel and private-label ranges for
                 clubs, brands and distributors in {settings["countries_served"]}+ countries. Full customisation, low
                 minimums, verified quality control.
               </p>
@@ -275,7 +275,7 @@ function Home() {
             />
             <img
               src="/images/manufacturing.jpg"
-              alt="Axiom Sportswear production floor with stitching lines"
+              alt="Rare Signs Apparel production floor with stitching lines"
               width={1200}
               height={900}
               loading="lazy"

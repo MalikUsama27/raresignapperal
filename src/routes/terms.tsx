@@ -4,13 +4,13 @@ import { PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms & Conditions | Axiom Sportswear" },
+      { title: "Terms & Conditions | Rare Signs Apparel" },
       {
         name: "description",
         content:
-          "Terms governing quotations, samples, minimum order quantities, production, payment, shipping and claims for orders placed with Axiom Sportswear.",
+          "Terms governing quotations, samples, minimum order quantities, production, payment, shipping and claims for orders placed with Rare Signs Apparel.",
       },
-      { property: "og:title", content: "Terms & Conditions | Axiom Sportswear" },
+      { property: "og:title", content: "Terms & Conditions | Rare Signs Apparel" },
       { property: "og:description", content: "Quotation, production, payment and shipping terms for export orders." },
     ],
   }),
@@ -58,7 +58,7 @@ function TermsPage() {
       <PageHero
         eyebrow="Legal"
         title="Terms & conditions"
-        description="These terms apply to quotations, samples and export orders placed with Axiom Sportswear unless superseded by a signed supply agreement."
+        description="These terms apply to quotations, samples and export orders placed with Rare Signs Apparel unless superseded by a signed supply agreement."
       />
       <section className="border-t border-border py-20 md:py-28">
         <div className="container-page max-w-3xl space-y-10">

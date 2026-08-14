@@ -14,7 +14,7 @@ export function WorldMap({ countries }: { countries: MapCountry[] }) {
 
   return (
     <div className="relative aspect-16/9 w-full overflow-hidden rounded-2xl border border-border bg-panel">
-      <svg viewBox="0 0 100 56" className="absolute inset-0 size-full" role="img" aria-label="Axiom Sportswear export destinations">
+      <svg viewBox="0 0 100 56" className="absolute inset-0 size-full" role="img" aria-label="Rare Signs Apparel export destinations">
         <defs>
           <radialGradient id="mapGlow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.22" />

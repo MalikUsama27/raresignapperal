@@ -10,13 +10,13 @@ export const Route = createFileRoute("/faq")({
   },
   head: () => ({
     meta: [
-      { title: "FAQ | MOQs, Lead Times & Shipping | Axiom Sportswear" },
+      { title: "FAQ | MOQs, Lead Times & Shipping | Rare Signs Apparel" },
       {
         name: "description",
         content:
           "Answers on minimum order quantities, sampling, lead times, customisation, payment terms and worldwide shipping for custom sportswear orders.",
       },
-      { property: "og:title", content: "Frequently Asked Questions | Axiom Sportswear" },
+      { property: "og:title", content: "Frequently Asked Questions | Rare Signs Apparel" },
       { property: "og:description", content: "MOQs, samples, lead times, payment terms and shipping explained." },
     ],
   }),

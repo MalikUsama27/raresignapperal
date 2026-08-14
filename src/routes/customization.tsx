@@ -5,13 +5,13 @@ import { Reveal, SectionHeading } from "@/components/site/Reveal";
 export const Route = createFileRoute("/customization")({
   head: () => ({
     meta: [
-      { title: "Custom Sportswear & Private Label Services | Axiom Sportswear" },
+      { title: "Custom Sportswear & Private Label Services | Rare Signs Apparel" },
       {
         name: "description",
         content:
           "Custom kit design, sublimation, embroidery, woven labels, hangtags and full private-label sportswear manufacturing from 50 pieces per design.",
       },
-      { property: "og:title", content: "Customisation & Private Label | Axiom Sportswear" },
+      { property: "og:title", content: "Customisation & Private Label | Rare Signs Apparel" },
       {
         property: "og:description",
         content: "Your colours, crest, sponsors, labels and packaging — manufactured to spec from 50 pieces.",
@@ -72,7 +72,7 @@ function CustomizationPage() {
             />
             <img
               src="/images/cat-teamwear.jpg"
-              alt="Custom sublimated team kits produced by Axiom Sportswear"
+              alt="Custom sublimated team kits produced by Rare Signs Apparel"
               width={1200}
               height={900}
               loading="lazy"

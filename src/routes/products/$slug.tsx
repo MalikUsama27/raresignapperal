@@ -16,9 +16,9 @@ export const Route = createFileRoute("/products/$slug")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: loaderData?.seoTitle ?? "Product | Axiom Sportswear" },
-      { name: "description", content: loaderData?.seo ?? "Custom manufactured sportswear from Axiom Sportswear." },
-      { property: "og:title", content: loaderData?.seoTitle ?? "Product | Axiom Sportswear" },
+      { title: loaderData?.seoTitle ?? "Product | Rare Signs Apparel" },
+      { name: "description", content: loaderData?.seo ?? "Custom manufactured sportswear from Rare Signs Apparel." },
+      { property: "og:title", content: loaderData?.seoTitle ?? "Product | Rare Signs Apparel" },
       { property: "og:description", content: loaderData?.seo ?? "Custom manufactured sportswear." },
     ],
   }),

@@ -14,14 +14,14 @@ export const Route = createFileRoute("/category/$slug")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.name ?? "Category"} Manufacturer & Exporter | Axiom Sportswear` },
+      { title: `${loaderData?.name ?? "Category"} Manufacturer & Exporter | Rare Signs Apparel` },
       {
         name: "description",
         content:
           loaderData?.seo ??
-          "Custom manufactured sportswear category from Axiom Sportswear, exported worldwide with low minimums.",
+          "Custom manufactured sportswear category from Rare Signs Apparel, exported worldwide with low minimums.",
       },
-      { property: "og:title", content: `${loaderData?.name ?? "Category"} | Axiom Sportswear` },
+      { property: "og:title", content: `${loaderData?.name ?? "Category"} | Rare Signs Apparel` },
       { property: "og:description", content: loaderData?.seo ?? "Custom manufactured sportswear." },
     ],
   }),

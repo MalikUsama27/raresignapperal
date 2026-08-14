@@ -8,20 +8,23 @@ import { WorldMap } from "@/components/site/WorldMap";
 import { InquiryDialog } from "@/components/site/InquiryDialog";
 import { CtaSection } from "@/components/site/PageShell";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData(homeContentQuery());
   },
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/") }],
     meta: [
-      { title: "Axiom Sportswear | Custom Sportswear Manufacturer & Exporter" },
+      { property: "og:url", content: canonical("/") },
+      { title: "Rare Signs Apparel | Custom Sportswear Manufacturer & Exporter" },
       {
         name: "description",
         content:
           "Custom sportswear, teamwear, fitness and private-label apparel manufactured in Sialkot and exported to 40+ countries. Low MOQs, full customisation, 20-35 day production.",
       },
-      { property: "og:title", content: "Axiom Sportswear | Custom Sportswear Manufacturer & Exporter" },
+      { property: "og:title", content: "Rare Signs Apparel | Custom Sportswear Manufacturer & Exporter" },
       {
         property: "og:description",
         content:
@@ -34,7 +37,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "Axiom Sportswear",
+          name: "Rare Signs Apparel",
           description:
             "Manufacturer and exporter of premium custom sportswear, teamwear and private-label apparel.",
           address: {
@@ -45,7 +48,7 @@ export const Route = createFileRoute("/")({
             addressCountry: "PK",
           },
           telephone: "+92-333-7408106",
-          email: "export@axiomsportswear.com",
+          email: "export@raresignsapparel.com",
         }),
       },
     ],
@@ -110,7 +113,7 @@ function Home() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-                Axiom Sportswear manufactures competition-grade teamwear, fitness apparel and private-label ranges for
+                Rare Signs Apparel manufactures competition-grade teamwear, fitness apparel and private-label ranges for
                 clubs, brands and distributors in {settings["countries_served"]}+ countries. Full customisation, low
                 minimums, verified quality control.
               </p>
@@ -246,7 +249,7 @@ function Home() {
       <section className="border-t border-border py-20 md:py-28">
         <div className="container-page">
           <SectionHeading
-            eyebrow="Why Axiom"
+            eyebrow="Why Rare Signs"
             title="Built for buyers who cannot afford surprises"
             description="Sourcing teams stay with us because the second order looks exactly like the approved sample — and the paperwork clears customs without chasing."
           />
@@ -275,7 +278,7 @@ function Home() {
             />
             <img
               src="/images/manufacturing.jpg"
-              alt="Axiom Sportswear production floor with stitching lines"
+              alt="Rare Signs Apparel production floor with stitching lines"
               width={1200}
               height={900}
               loading="lazy"

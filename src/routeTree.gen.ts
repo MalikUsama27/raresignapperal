@@ -17,7 +17,10 @@ import { Route as ExportMarketsRouteImport } from './routes/export-markets'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ManufacturingRouteImport } from './routes/manufacturing'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as CategorySlugRouteImport } from './routes/category/$slug'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as ProductsSlugRouteImport } from './routes/products/$slug'
@@ -63,9 +66,24 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategorySlugRoute = CategorySlugRouteImport.update({
@@ -99,9 +117,12 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/manufacturing': typeof ManufacturingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/category/$slug': typeof CategorySlugRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/category/$category/$subcategory': typeof CategoryCategorySubcategoryRoute
 }
@@ -114,9 +135,12 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/manufacturing': typeof ManufacturingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/category/$slug': typeof CategorySlugRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/blog': typeof BlogIndexRoute
   '/products': typeof ProductsIndexRoute
   '/category/$category/$subcategory': typeof CategoryCategorySubcategoryRoute
 }
@@ -130,9 +154,12 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/manufacturing': typeof ManufacturingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/category/$slug': typeof CategorySlugRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/category/$category/$subcategory': typeof CategoryCategorySubcategoryRoute
 }
@@ -147,9 +174,12 @@ export interface FileRouteTypes {
     | '/faq'
     | '/manufacturing'
     | '/privacy-policy'
+    | '/sitemap.xml'
     | '/terms'
+    | '/blog/$slug'
     | '/category/$slug'
     | '/products/$slug'
+    | '/blog/'
     | '/products/'
     | '/category/$category/$subcategory'
   fileRoutesByTo: FileRoutesByTo
@@ -162,9 +192,12 @@ export interface FileRouteTypes {
     | '/faq'
     | '/manufacturing'
     | '/privacy-policy'
+    | '/sitemap.xml'
     | '/terms'
+    | '/blog/$slug'
     | '/category/$slug'
     | '/products/$slug'
+    | '/blog'
     | '/products'
     | '/category/$category/$subcategory'
   id:
@@ -177,9 +210,12 @@ export interface FileRouteTypes {
     | '/faq'
     | '/manufacturing'
     | '/privacy-policy'
+    | '/sitemap.xml'
     | '/terms'
+    | '/blog/$slug'
     | '/category/$slug'
     | '/products/$slug'
+    | '/blog/'
     | '/products/'
     | '/category/$category/$subcategory'
   fileRoutesById: FileRoutesById
@@ -193,9 +229,12 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   ManufacturingRoute: typeof ManufacturingRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   CategorySlugRoute: typeof CategorySlugRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   CategoryCategorySubcategoryRoute: typeof CategoryCategorySubcategoryRoute
 }
@@ -258,11 +297,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/category/$slug': {
@@ -305,9 +365,12 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   ManufacturingRoute: ManufacturingRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
+  BlogSlugRoute: BlogSlugRoute,
   CategorySlugRoute: CategorySlugRoute,
   ProductsSlugRoute: ProductsSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   CategoryCategorySubcategoryRoute: CategoryCategorySubcategoryRoute,
 }

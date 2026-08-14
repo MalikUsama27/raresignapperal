@@ -1,17 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/manufacturing")({
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/manufacturing") }],
     meta: [
-      { title: "Manufacturing Process | Sportswear Production | Axiom Sportswear" },
+      { property: "og:url", content: canonical("/manufacturing") },
+      { title: "Manufacturing Process | Sportswear Production | Rare Signs Apparel" },
       {
         name: "description",
         content:
-          "See how Axiom Sportswear manufactures custom apparel: tech pack development, fabric selection, cutting, sublimation, embroidery, stitching, AQL quality control and export packing.",
+          "See how Rare Signs Apparel manufactures custom apparel: tech pack development, fabric selection, cutting, sublimation, embroidery, stitching, AQL quality control and export packing.",
       },
-      { property: "og:title", content: "Sportswear Manufacturing Process | Axiom Sportswear" },
+      { property: "og:title", content: "Sportswear Manufacturing Process | Rare Signs Apparel" },
       {
         property: "og:description",
         content: "Eight controlled production stages, all in house, from tech pack to export carton.",
@@ -54,7 +57,7 @@ function ManufacturingPage() {
         <div className="container-page">
           <img
             src="/images/manufacturing.jpg"
-            alt="Sportswear production lines at Axiom Sportswear"
+            alt="Sportswear production lines at Rare Signs Apparel"
             width={1920}
             height={1080}
             loading="lazy"

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { navigationQuery } from "@/lib/queries";
 import { SearchDialog } from "./SearchDialog";
+import { BrandLogo } from "./BrandLogo";
 import { cn } from "@/lib/utils";
 
 const PAGES = [
@@ -13,6 +14,7 @@ const PAGES = [
   { label: "Manufacturing", to: "/manufacturing" },
   { label: "Customization", to: "/customization" },
   { label: "Export Markets", to: "/export-markets" },
+  { label: "Insights", to: "/blog" },
   { label: "Contact", to: "/contact" },
 ] as const;
 
@@ -57,14 +59,7 @@ export function Navbar() {
         )}
       >
         <nav className="container-page flex h-16 items-center justify-between gap-6 md:h-20" aria-label="Main">
-          <Link to="/" className="flex items-center gap-2.5">
-            <span className="grid size-8 place-items-center rounded-md bg-primary text-sm font-bold text-primary-foreground">
-              A
-            </span>
-            <span className="font-display text-base font-bold tracking-tight md:text-lg">
-              AXIOM<span className="text-primary"> SPORTSWEAR</span>
-            </span>
-          </Link>
+          <BrandLogo />
 
           <div className="hidden items-center gap-1 lg:flex">
             {PAGES.slice(0, 2).map((page) => (

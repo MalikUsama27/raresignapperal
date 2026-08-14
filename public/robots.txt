@@ -12,3 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+Sitemap: https://global-sportswear-hub.lovable.app/sitemap.xml

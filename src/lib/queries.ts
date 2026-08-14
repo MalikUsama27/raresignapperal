@@ -1,4 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
+import { getBlogPost, listBlogPosts } from "./blog.functions";
 import {
   getCategory,
   getExportCountries,
@@ -55,3 +56,15 @@ export const subcategoryQuery = (category: string, subcategory: string) =>
     queryFn: () => getSubcategory({ data: { category, subcategory } }),
     staleTime: HOUR,
   });
+
+export type BlogListParams = { category?: string | undefined; search?: string | undefined; limit?: number | undefined };
+
+export const blogPostsQuery = (params: BlogListParams = {}) =>
+  queryOptions({
+    queryKey: ["blog-posts", params],
+    queryFn: () => listBlogPosts({ data: params }),
+    staleTime: 5 * 60 * 1000,
+  });
+
+export const blogPostQuery = (slug: string) =>
+  queryOptions({ queryKey: ["blog-post", slug], queryFn: () => getBlogPost({ data: { slug } }), staleTime: HOUR });

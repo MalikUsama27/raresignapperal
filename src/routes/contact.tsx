@@ -6,17 +6,20 @@ import { PageHero } from "@/components/site/PageShell";
 import { InquiryForm } from "@/components/site/InquiryDialog";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
 import { Reveal } from "@/components/site/Reveal";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/contact") }],
     meta: [
-      { title: "Contact & Request a Quote | Axiom Sportswear" },
+      { property: "og:url", content: canonical("/contact") },
+      { title: "Contact & Request a Quote | Rare Signs Apparel" },
       {
         name: "description",
         content:
-          "Contact the Axiom Sportswear export team by WhatsApp, email or inquiry form. Quotes with MOQ and lead time returned within one business day.",
+          "Contact the Rare Signs Apparel export team by WhatsApp, email or inquiry form. Quotes with MOQ and lead time returned within one business day.",
       },
-      { property: "og:title", content: "Contact Axiom Sportswear" },
+      { property: "og:title", content: "Contact Rare Signs Apparel" },
       { property: "og:description", content: "Send your tech pack or reference and get a costed quote in 24 hours." },
     ],
   }),

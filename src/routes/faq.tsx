@@ -3,20 +3,23 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { faqsQuery } from "@/lib/queries";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/faq")({
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData(faqsQuery());
   },
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/faq") }],
     meta: [
-      { title: "FAQ | MOQs, Lead Times & Shipping | Axiom Sportswear" },
+      { property: "og:url", content: canonical("/faq") },
+      { title: "FAQ | MOQs, Lead Times & Shipping | Rare Signs Apparel" },
       {
         name: "description",
         content:
           "Answers on minimum order quantities, sampling, lead times, customisation, payment terms and worldwide shipping for custom sportswear orders.",
       },
-      { property: "og:title", content: "Frequently Asked Questions | Axiom Sportswear" },
+      { property: "og:title", content: "Frequently Asked Questions | Rare Signs Apparel" },
       { property: "og:description", content: "MOQs, samples, lead times, payment terms and shipping explained." },
     ],
   }),

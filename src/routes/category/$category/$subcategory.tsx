@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { productsQuery, subcategoryQuery } from "@/lib/queries";
+import { canonical } from "@/lib/site";
 import { ProductCard, ProductCardSkeleton } from "@/components/site/ProductCard";
 import { Breadcrumbs, CtaSection } from "@/components/site/PageShell";
 
@@ -15,16 +16,22 @@ export const Route = createFileRoute("/category/$category/$subcategory")({
       name: data.subcategory.name,
       category: data.category.name,
       seo: data.subcategory.description,
+      seoTitle: data.subcategory.seo_title,
+      path: `/category/${data.category.slug}/${data.subcategory.slug}`,
     };
   },
   head: ({ loaderData }) => ({
+    links: loaderData ? [{ rel: "canonical", href: canonical(loaderData.path) }] : [],
     meta: [
-      { title: `${loaderData?.name ?? "Range"} | ${loaderData?.category ?? "Sportswear"} | Axiom Sportswear` },
+      ...(loaderData ? [{ property: "og:url", content: canonical(loaderData.path) }] : []),
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { title: loaderData?.seoTitle ?? `${loaderData?.name ?? "Range"} | ${loaderData?.category ?? "Sportswear"} | Rare Signs Apparel` },
       {
         name: "description",
         content: loaderData?.seo ?? "Custom manufactured sportswear range, exported worldwide from Sialkot.",
       },
-      { property: "og:title", content: `${loaderData?.name ?? "Range"} | Axiom Sportswear` },
+      { property: "og:title", content: `${loaderData?.name ?? "Range"} | Rare Signs Apparel` },
       { property: "og:description", content: loaderData?.seo ?? "Custom manufactured sportswear range." },
     ],
   }),

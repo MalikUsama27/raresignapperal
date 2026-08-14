@@ -3,7 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2, Search } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { productsQuery } from "@/lib/queries";
+import { blogPostsQuery, productsQuery } from "@/lib/queries";
 
 export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   const [term, setTerm] = useState("");
@@ -18,7 +18,13 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
   const params = useMemo(() => ({ search: debounced, perPage: 6 }), [debounced]);
   const { data, isFetching } = useQuery({ ...productsQuery(params), enabled: open && debounced.length >= 2 });
 
+  const { data: blog } = useQuery({
+    ...blogPostsQuery({ search: debounced, limit: 3 }),
+    enabled: open && debounced.length >= 2,
+  });
+
   const results = data?.items ?? [];
+  const articles = blog?.items ?? [];
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -87,6 +93,31 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
               ))}
             </ul>
           )}
+
+          {articles.length > 0 ? (
+            <div className="mt-2 border-t border-border pt-2">
+              <p className="px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                Insights
+              </p>
+              <ul>
+                {articles.map((post) => (
+                  <li key={post.id}>
+                    <Link
+                      to="/blog/$slug"
+                      params={{ slug: post.slug }}
+                      onClick={() => onOpenChange(false)}
+                      className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-elevated"
+                    >
+                      <span className="block truncate text-sm font-medium">{post.title}</span>
+                      <span className="block truncate text-xs text-muted-foreground">
+                        {post.blog_categories?.name ?? "Article"} · {post.read_minutes} min read
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
 
         {debounced.length >= 2 ? (

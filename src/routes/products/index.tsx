@@ -7,6 +7,7 @@ import { navigationQuery, productsQuery } from "@/lib/queries";
 import { ProductCard, ProductCardSkeleton } from "@/components/site/ProductCard";
 import { CtaSection } from "@/components/site/PageShell";
 import { cn } from "@/lib/utils";
+import { canonical } from "@/lib/site";
 
 const searchSchema = z.object({
   search: z.string().trim().max(120).optional(),
@@ -19,14 +20,16 @@ const searchSchema = z.object({
 export const Route = createFileRoute("/products/")({
   validateSearch: searchSchema,
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/products") }],
     meta: [
-      { title: "All Products | Custom Sportswear & Apparel Catalogue | Axiom" },
+      { property: "og:url", content: canonical("/products") },
+      { title: "All Products | Custom Sportswear & Apparel Catalogue | Rare Signs Apparel" },
       {
         name: "description",
         content:
           "Browse 150+ custom sportswear, teamwear, fitness and casual styles. Filter by category, search the catalogue and request a quote with your own branding.",
       },
-      { property: "og:title", content: "Custom Sportswear & Apparel Catalogue | Axiom Sportswear" },
+      { property: "og:title", content: "Custom Sportswear & Apparel Catalogue | Rare Signs Apparel" },
       {
         property: "og:description",
         content: "Filter our full export catalogue by category and subcategory, then request a quote.",

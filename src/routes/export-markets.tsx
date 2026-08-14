@@ -4,20 +4,23 @@ import { exportCountriesQuery } from "@/lib/queries";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { WorldMap } from "@/components/site/WorldMap";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/export-markets")({
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData(exportCountriesQuery());
   },
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/export-markets") }],
     meta: [
-      { title: "Export Markets | Global Sportswear Shipping | Axiom Sportswear" },
+      { property: "og:url", content: canonical("/export-markets") },
+      { title: "Export Markets | Global Sportswear Shipping | Rare Signs Apparel" },
       {
         name: "description",
         content:
-          "Axiom Sportswear exports custom apparel to 40+ countries across North America, Europe, the Middle East and Oceania with full documentation and air or sea freight.",
+          "Rare Signs Apparel exports custom apparel to 40+ countries across North America, Europe, the Middle East and Oceania with full documentation and air or sea freight.",
       },
-      { property: "og:title", content: "Global Export Markets | Axiom Sportswear" },
+      { property: "og:title", content: "Global Export Markets | Rare Signs Apparel" },
       {
         property: "og:description",
         content: "Shipping custom sportswear to clubs, brands and distributors on five continents.",

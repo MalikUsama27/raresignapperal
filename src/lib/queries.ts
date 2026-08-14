@@ -57,7 +57,7 @@ export const subcategoryQuery = (category: string, subcategory: string) =>
     staleTime: HOUR,
   });
 
-export type BlogListParams = { category?: string; search?: string; limit?: number };
+export type BlogListParams = { category?: string | undefined; search?: string | undefined; limit?: number | undefined };
 
 export const blogPostsQuery = (params: BlogListParams = {}) =>
   queryOptions({

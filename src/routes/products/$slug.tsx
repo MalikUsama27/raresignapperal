@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Check, MessageCircle, Package, Palette, Ruler } from "lucide-react";
 import { productQuery } from "@/lib/queries";
+import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
 import { productWhatsappMessage, whatsappLink } from "@/lib/whatsapp";
 import { InquiryDialog } from "@/components/site/InquiryDialog";
 import { ProductCard } from "@/components/site/ProductCard";
@@ -12,16 +13,73 @@ export const Route = createFileRoute("/products/$slug")({
   loader: async ({ context, params }) => {
     const data = await context.queryClient.ensureQueryData(productQuery(params.slug));
     if (!data) throw notFound();
-    return { name: data.product.name, seo: data.product.seo_description, seoTitle: data.product.seo_title };
+    const p = data.product;
+    return {
+      slug: p.slug,
+      name: p.name,
+      sku: p.sku,
+      moq: p.moq,
+      material: p.material,
+      category: p.categories?.name ?? null,
+      image: p.image_url,
+      seo: p.seo_description ?? p.short_description,
+      seoTitle: p.seo_title ?? `${p.name} Manufacturer & Exporter | Rare Signs Apparel`,
+      keywords: p.keywords,
+    };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: loaderData?.seoTitle ?? "Product | Rare Signs Apparel" },
-      { name: "description", content: loaderData?.seo ?? "Custom manufactured sportswear from Rare Signs Apparel." },
-      { property: "og:title", content: loaderData?.seoTitle ?? "Product | Rare Signs Apparel" },
-      { property: "og:description", content: loaderData?.seo ?? "Custom manufactured sportswear." },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+    const url = canonical(`/products/${loaderData.slug}`);
+    const image = loaderData.image ? `${SITE_URL}${loaderData.image}` : null;
+    const description =
+      loaderData.seo ?? `${loaderData.name} manufactured to order by Rare Signs Apparel and exported worldwide.`;
+
+    return {
+      meta: [
+        { title: loaderData.seoTitle },
+        { name: "description", content: description },
+        ...(loaderData.keywords ? [{ name: "keywords", content: loaderData.keywords }] : []),
+        { property: "og:title", content: loaderData.seoTitle },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "product" },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+        ...(image
+          ? [
+              { property: "og:image", content: image },
+              { name: "twitter:image", content: image },
+            ]
+          : []),
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: loaderData.name,
+            description,
+            ...(image ? { image: [image] } : {}),
+            ...(loaderData.sku ? { sku: loaderData.sku } : {}),
+            ...(loaderData.material ? { material: loaderData.material } : {}),
+            ...(loaderData.category ? { category: loaderData.category } : {}),
+            brand: { "@type": "Brand", name: COMPANY_NAME },
+            manufacturer: { "@type": "Organization", name: COMPANY_NAME },
+            url,
+            offers: {
+              "@type": "Offer",
+              availability: "https://schema.org/InStock",
+              priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", valueAddedTaxIncluded: false },
+              url,
+              seller: { "@type": "Organization", name: COMPANY_NAME },
+              ...(loaderData.moq ? { eligibleQuantity: { "@type": "QuantitativeValue", description: loaderData.moq } } : {}),
+            },
+          }),
+        },
+      ],
+    };
+  },
   component: ProductPage,
 });
 

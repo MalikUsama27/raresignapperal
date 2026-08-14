@@ -246,7 +246,7 @@ function Home() {
       <section className="border-t border-border py-20 md:py-28">
         <div className="container-page">
           <SectionHeading
-            eyebrow="Why Axiom"
+            eyebrow="Why Rare Signs"
             title="Built for buyers who cannot afford surprises"
             description="Sourcing teams stay with us because the second order looks exactly like the approved sample — and the paperwork clears customs without chasing."
           />

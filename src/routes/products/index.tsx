@@ -20,7 +20,7 @@ export const Route = createFileRoute("/products/")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "All Products | Custom Sportswear & Apparel Catalogue | Axiom" },
+      { title: "All Products | Custom Sportswear & Apparel Catalogue | Rare Signs Apparel" },
       {
         name: "description",
         content:

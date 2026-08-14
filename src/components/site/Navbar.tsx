@@ -14,6 +14,7 @@ const PAGES = [
   { label: "Manufacturing", to: "/manufacturing" },
   { label: "Customization", to: "/customization" },
   { label: "Export Markets", to: "/export-markets" },
+  { label: "Insights", to: "/blog" },
   { label: "Contact", to: "/contact" },
 ] as const;
 

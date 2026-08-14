@@ -10,6 +10,7 @@ const QUICK_LINKS = [
   { label: "Manufacturing", to: "/manufacturing" },
   { label: "Customization", to: "/customization" },
   { label: "Export markets", to: "/export-markets" },
+  { label: "Insights", to: "/blog" },
   { label: "FAQ", to: "/faq" },
   { label: "Contact", to: "/contact" },
 ] as const;

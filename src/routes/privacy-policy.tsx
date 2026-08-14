@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageShell";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/privacy-policy") }],
     meta: [
+      { property: "og:url", content: canonical("/privacy-policy") },
       { title: "Privacy Policy | Rare Signs Apparel" },
       {
         name: "description",

@@ -4,13 +4,16 @@ import { exportCountriesQuery } from "@/lib/queries";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { WorldMap } from "@/components/site/WorldMap";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/export-markets")({
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData(exportCountriesQuery());
   },
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/export-markets") }],
     meta: [
+      { property: "og:url", content: canonical("/export-markets") },
       { title: "Export Markets | Global Sportswear Shipping | Rare Signs Apparel" },
       {
         name: "description",

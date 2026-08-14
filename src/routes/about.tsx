@@ -4,10 +4,13 @@ import { Award, Building2, Eye, Target, Users } from "lucide-react";
 import { siteSettingsQuery } from "@/lib/queries";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/about") }],
     meta: [
+      { property: "og:url", content: canonical("/about") },
       { title: "About Rare Signs Apparel | Sportswear Manufacturer in Sialkot" },
       {
         name: "description",

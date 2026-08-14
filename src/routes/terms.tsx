@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageShell";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/terms") }],
     meta: [
+      { property: "og:url", content: canonical("/terms") },
       { title: "Terms & Conditions | Rare Signs Apparel" },
       {
         name: "description",

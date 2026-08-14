@@ -1,10 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/manufacturing")({
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/manufacturing") }],
     meta: [
+      { property: "og:url", content: canonical("/manufacturing") },
       { title: "Manufacturing Process | Sportswear Production | Rare Signs Apparel" },
       {
         name: "description",

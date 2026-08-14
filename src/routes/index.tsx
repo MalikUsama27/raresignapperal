@@ -8,13 +8,16 @@ import { WorldMap } from "@/components/site/WorldMap";
 import { InquiryDialog } from "@/components/site/InquiryDialog";
 import { CtaSection } from "@/components/site/PageShell";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData(homeContentQuery());
   },
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/") }],
     meta: [
+      { property: "og:url", content: canonical("/") },
       { title: "Rare Signs Apparel | Custom Sportswear Manufacturer & Exporter" },
       {
         name: "description",

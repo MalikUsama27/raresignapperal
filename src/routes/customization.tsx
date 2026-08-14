@@ -1,10 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/customization")({
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/customization") }],
     meta: [
+      { property: "og:url", content: canonical("/customization") },
       { title: "Custom Sportswear & Private Label Services | Rare Signs Apparel" },
       {
         name: "description",

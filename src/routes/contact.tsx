@@ -6,10 +6,13 @@ import { PageHero } from "@/components/site/PageShell";
 import { InquiryForm } from "@/components/site/InquiryDialog";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
 import { Reveal } from "@/components/site/Reveal";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/contact") }],
     meta: [
+      { property: "og:url", content: canonical("/contact") },
       { title: "Contact & Request a Quote | Rare Signs Apparel" },
       {
         name: "description",

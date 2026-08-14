@@ -7,6 +7,7 @@ import { navigationQuery, productsQuery } from "@/lib/queries";
 import { ProductCard, ProductCardSkeleton } from "@/components/site/ProductCard";
 import { CtaSection } from "@/components/site/PageShell";
 import { cn } from "@/lib/utils";
+import { canonical } from "@/lib/site";
 
 const searchSchema = z.object({
   search: z.string().trim().max(120).optional(),
@@ -19,7 +20,9 @@ const searchSchema = z.object({
 export const Route = createFileRoute("/products/")({
   validateSearch: searchSchema,
   head: () => ({
+    links: [{ rel: "canonical", href: canonical("/products") }],
     meta: [
+      { property: "og:url", content: canonical("/products") },
       { title: "All Products | Custom Sportswear & Apparel Catalogue | Rare Signs Apparel" },
       {
         name: "description",

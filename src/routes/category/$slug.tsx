@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { categoryQuery, productsQuery } from "@/lib/queries";
+import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
 import { ProductCard, ProductCardSkeleton } from "@/components/site/ProductCard";
 import { Breadcrumbs, CtaSection } from "@/components/site/PageShell";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
@@ -10,21 +11,49 @@ export const Route = createFileRoute("/category/$slug")({
   loader: async ({ context, params }) => {
     const data = await context.queryClient.ensureQueryData(categoryQuery(params.slug));
     if (!data) throw notFound();
-    return { name: data.category.name, seo: data.category.description, count: data.productCount };
+    return { slug: data.category.slug, name: data.category.name, seo: data.category.description, seoTitle: data.category.seo_title, image: data.category.image_url, count: data.productCount };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${loaderData?.name ?? "Category"} Manufacturer & Exporter | Rare Signs Apparel` },
-      {
-        name: "description",
-        content:
-          loaderData?.seo ??
-          "Custom manufactured sportswear category from Rare Signs Apparel, exported worldwide with low minimums.",
-      },
-      { property: "og:title", content: `${loaderData?.name ?? "Category"} | Rare Signs Apparel` },
-      { property: "og:description", content: loaderData?.seo ?? "Custom manufactured sportswear." },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+    const url = canonical(`/category/${loaderData.slug}`);
+    const title = loaderData.seoTitle ?? `${loaderData.name} Manufacturer & Exporter | Rare Signs Apparel`;
+    const description =
+      loaderData.seo ??
+      `${loaderData.name} manufactured to order by Rare Signs Apparel — ${loaderData.count} styles, low minimums, worldwide export.`;
+    const image = loaderData.image ? `${SITE_URL}${loaderData.image}` : null;
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+        ...(image
+          ? [
+              { property: "og:image", content: image },
+              { name: "twitter:image", content: image },
+            ]
+          : []),
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: loaderData.name,
+            description,
+            url,
+            isPartOf: { "@type": "WebSite", name: COMPANY_NAME, url: SITE_URL },
+          }),
+        },
+      ],
+    };
+  },
   component: CategoryPage,
 });
 

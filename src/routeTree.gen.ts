@@ -17,6 +17,7 @@ import { Route as ExportMarketsRouteImport } from './routes/export-markets'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ManufacturingRouteImport } from './routes/manufacturing'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
@@ -65,6 +66,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -111,6 +117,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/manufacturing': typeof ManufacturingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -128,6 +135,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/manufacturing': typeof ManufacturingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -146,6 +154,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/manufacturing': typeof ManufacturingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -165,6 +174,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/manufacturing'
     | '/privacy-policy'
+    | '/sitemap.xml'
     | '/terms'
     | '/blog/$slug'
     | '/category/$slug'
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/manufacturing'
     | '/privacy-policy'
+    | '/sitemap.xml'
     | '/terms'
     | '/blog/$slug'
     | '/category/$slug'
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/manufacturing'
     | '/privacy-policy'
+    | '/sitemap.xml'
     | '/terms'
     | '/blog/$slug'
     | '/category/$slug'
@@ -217,6 +229,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   ManufacturingRoute: typeof ManufacturingRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   CategorySlugRoute: typeof CategorySlugRoute
@@ -284,6 +297,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -345,6 +365,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   ManufacturingRoute: ManufacturingRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
   CategorySlugRoute: CategorySlugRoute,

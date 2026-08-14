@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { navigationQuery, siteSettingsQuery } from "@/lib/queries";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
+import { BrandLogo } from "./BrandLogo";
 
 const QUICK_LINKS = [
   { label: "About us", to: "/about" },
@@ -21,12 +22,7 @@ export function Footer() {
     <footer className="border-t border-border bg-surface">
       <div className="container-page grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <Link to="/" className="flex items-center gap-2.5">
-            <span className="grid size-8 place-items-center rounded-md bg-primary text-sm font-bold text-primary-foreground">
-              A
-            </span>
-            <span className="font-display text-base font-bold tracking-tight">RARE SIGNS APPAREL</span>
-          </Link>
+          <BrandLogo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">{settings?.["footer_note"]}</p>
           <a
             href={whatsappLink(GENERAL_WHATSAPP_MESSAGE)}

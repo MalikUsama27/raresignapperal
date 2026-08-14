@@ -15,3 +15,5 @@ export const SUBCATEGORY_FIELDS =
   "id, category_id, slug, name, description, image_url, sort_order, seo_title, seo_description";
 export const PRODUCT_CARD_FIELDS =
   "id, slug, name, sku, short_description, image_url, moq, is_featured, category_id, subcategory_id";
+export const BLOG_CARD_FIELDS =
+  "id, slug, title, excerpt, cover_image_url, author, read_minutes, published_at, is_featured, category_id, keywords";

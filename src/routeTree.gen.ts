@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CustomizationRouteImport } from './routes/customization'
 import { Route as ExportMarketsRouteImport } from './routes/export-markets'
@@ -34,6 +35,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -110,6 +116,7 @@ const CategoryCategorySubcategoryRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/customization': typeof CustomizationRoute
@@ -128,6 +135,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/customization': typeof CustomizationRoute
@@ -147,6 +155,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/customization': typeof CustomizationRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/about'
     | '/contact'
     | '/customization'
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/about'
     | '/contact'
     | '/customization'
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/about'
     | '/contact'
     | '/customization'
@@ -222,6 +234,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   CustomizationRoute: typeof CustomizationRoute
@@ -253,6 +266,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -358,6 +378,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   CustomizationRoute: CustomizationRoute,

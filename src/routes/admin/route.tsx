@@ -15,7 +15,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
-const NAV = [
+const NAV: { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/categories", label: "Categories", icon: Boxes },
   { to: "/admin/subcategories", label: "Subcategories", icon: ListTree },
@@ -25,7 +25,7 @@ const NAV = [
   { to: "/admin/markets", label: "Export markets", icon: Globe2 },
   { to: "/admin/inquiries", label: "Inquiries", icon: Inbox },
   { to: "/admin/settings", label: "Settings", icon: Settings },
-] as const;
+];
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -71,7 +71,7 @@ function AdminLayout() {
             {NAV.map((item) => (
               <Link
                 key={item.to}
-                to={item.to}
+                to={item.to as never}
                 activeOptions={{ exact: item.exact ?? false }}
                 className="flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-elevated hover:text-foreground data-[status=active]:bg-primary/10 data-[status=active]:text-primary"
               >

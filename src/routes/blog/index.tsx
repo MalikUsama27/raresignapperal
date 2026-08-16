@@ -12,7 +12,7 @@ const searchSchema = z.object({ category: z.string().trim().max(120).optional() 
 
 const TITLE = "Sportswear Manufacturing Insights & Export Guides | Rare Signs Apparel";
 const DESCRIPTION =
-  "Fabric guides, decoration methods, MOQ explanations and export compliance advice from a Sialkot-based sportswear manufacturer and exporter.";
+  "Fabric guides, decoration methods, sourcing tips and export compliance advice from a Sialkot-based sportswear manufacturer and exporter.";
 
 export const Route = createFileRoute("/blog/")({
   validateSearch: searchSchema,
@@ -46,7 +46,7 @@ function BlogIndex() {
       <PageHero
         eyebrow="Insights"
         title="Sportswear manufacturing, fabric and export insights"
-        description="Practical guides written for teamwear buyers, wholesalers and brand owners — fabric selection, decoration methods, minimum order quantities and export documentation."
+        description="Practical guides written for teamwear buyers, wholesalers and brand owners — fabric selection, decoration methods, sourcing and export documentation."
       />
 
       <section className="border-t border-border py-16 md:py-24">

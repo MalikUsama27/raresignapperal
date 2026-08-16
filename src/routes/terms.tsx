@@ -11,7 +11,7 @@ export const Route = createFileRoute("/terms")({
       {
         name: "description",
         content:
-          "Terms governing quotations, samples, minimum order quantities, production, payment, shipping and claims for orders placed with Rare Signs Apparel.",
+          "Terms governing quotations, samples, production, payment, shipping and claims for orders placed with Rare Signs Apparel.",
       },
       { property: "og:title", content: "Terms & Conditions | Rare Signs Apparel" },
       { property: "og:description", content: "Quotation, production, payment and shipping terms for export orders." },
@@ -30,8 +30,8 @@ const SECTIONS = [
     body: "Pre-production samples are chargeable and typically ready in 7-10 working days. Sample charges may be credited against a confirmed bulk order at our discretion.",
   },
   {
-    title: "Minimum order quantities",
-    body: "MOQs are stated per product and generally start at 50 pieces per design. Mixed sizes are included within an MOQ; additional colourways may carry their own minimum.",
+    title: "Order quantities",
+    body: "Order quantities are agreed per product at quotation stage. Mixed sizes are included within an order; additional colourways may be quoted separately.",
   },
   {
     title: "Production & lead times",

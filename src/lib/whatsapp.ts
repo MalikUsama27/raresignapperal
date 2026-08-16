@@ -5,8 +5,8 @@ export function whatsappLink(message: string) {
 }
 
 export function productWhatsappMessage(productName: string) {
-  return `Hello, I am interested in ${productName}. Please send me product details, MOQ, pricing and customization options.`;
+  return `Hello, I am interested in ${productName}. Please send me product details, pricing and customization options.`;
 }
 
 export const GENERAL_WHATSAPP_MESSAGE =
-  "Hello, I would like to discuss a custom sportswear order. Please share your catalogue, MOQ and pricing.";
+  "Hello, I would like to discuss a custom sportswear order. Please share your catalogue and pricing.";

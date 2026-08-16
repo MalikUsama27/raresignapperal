@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Custom sportswear, teamwear, fitness and private-label apparel manufactured in Sialkot and exported to 40+ countries. Low MOQs, full customisation, 20-35 day production.",
+          "Custom sportswear, teamwear, fitness and private-label apparel manufactured in Sialkot and exported to 40+ countries. Fast shipping, full customisation, 20-35 day production.",
       },
       { property: "og:title", content: "Rare Signs Apparel | Custom Sportswear Manufacturer & Exporter" },
       {
@@ -60,7 +60,7 @@ const WHY = [
   { icon: BadgeCheck, title: "Premium quality", body: "Fabric intake testing, in-line checks and final AQL inspection on every order." },
   { icon: Palette, title: "Custom manufacturing", body: "Sublimation, embroidery, screen print and full cut-and-sew development from tech pack." },
   { icon: Globe2, title: "Global export", body: "Documentation, freight and delivery handled into 40+ markets by air and sea." },
-  { icon: Boxes, title: "Low minimums", body: "From 50 pieces per design, with mixed sizes and player names at no extra cost." },
+  { icon: Boxes, title: "Flexible orders", body: "Mixed sizes, player names and numbers included at no extra cost on every order." },
   { icon: ShieldCheck, title: "Quality control", body: "Photographic QC reports shared per carton before shipment leaves the floor." },
   { icon: Timer, title: "Fast production", body: "Samples in 7-10 days, bulk in 20-35 days with weekly production updates." },
   { icon: Factory, title: "Custom branding", body: "Woven labels, hangtags, neck tape and retail-ready packaging under your brand." },
@@ -85,8 +85,8 @@ function Home() {
   const stats = [
     { value: `${settings["countries_served"] ?? "40"}+`, label: "Export markets" },
     { value: `${Number(settings["units_per_month"] ?? 0).toLocaleString()}`, label: "Units per month" },
-    { value: `${settings["team_size"] ?? ""}`, label: "In-house team" },
-    { value: `${new Date().getFullYear() - Number(settings["founded_year"] ?? 2009)} yrs`, label: "Export experience" },
+    { value: `${settings["team_size"] ?? "50+"}`, label: "In-house team" },
+    { value: "10 Yrs", label: "Experience" },
   ];
 
   return (

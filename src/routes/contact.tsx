@@ -17,7 +17,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Contact the Rare Signs Apparel export team by WhatsApp, email or inquiry form. Quotes with MOQ and lead time returned within one business day.",
+          "Contact the Rare Signs Apparel export team by WhatsApp, email or inquiry form. Quotes with pricing and lead time returned within one business day.",
       },
       { property: "og:title", content: "Contact Rare Signs Apparel" },
       { property: "og:description", content: "Send your tech pack or reference and get a costed quote in 24 hours." },
@@ -47,7 +47,7 @@ function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Talk to the export desk directly"
-        description="Send your product list, quantities and artwork. You will get a spec sheet with MOQ, lead time and indicative pricing within one business day."
+        description="Send your product list, quantities and artwork. You will get a spec sheet with lead time and indicative pricing within one business day."
       />
 
       <section className="border-t border-border py-20 md:py-28">

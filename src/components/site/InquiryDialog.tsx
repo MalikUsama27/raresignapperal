@@ -137,8 +137,8 @@ export function InquiryDialog({
           <DialogTitle className="font-display text-xl">Send an inquiry</DialogTitle>
           <DialogDescription>
             {productName
-              ? `Tell us about your requirement for ${productName} and we will reply with specs, MOQ and pricing.`
-              : "Share your requirement and our export team will respond with specs, MOQ and pricing."}
+              ? `Tell us about your requirement for ${productName} and we will reply with specs and pricing.`
+              : "Share your requirement and our export team will respond with specs and pricing."}
           </DialogDescription>
         </DialogHeader>
 

@@ -13,14 +13,14 @@ export const Route = createFileRoute("/faq")({
     links: [{ rel: "canonical", href: canonical("/faq") }],
     meta: [
       { property: "og:url", content: canonical("/faq") },
-      { title: "FAQ | MOQs, Lead Times & Shipping | Rare Signs Apparel" },
+      { title: "FAQ | Lead Times, Customisation & Shipping | Rare Signs Apparel" },
       {
         name: "description",
         content:
-          "Answers on minimum order quantities, sampling, lead times, customisation, payment terms and worldwide shipping for custom sportswear orders.",
+          "Answers on sampling, lead times, customisation, payment terms and worldwide shipping for custom sportswear orders.",
       },
       { property: "og:title", content: "Frequently Asked Questions | Rare Signs Apparel" },
-      { property: "og:description", content: "MOQs, samples, lead times, payment terms and shipping explained." },
+      { property: "og:description", content: "Samples, lead times, payment terms and shipping explained." },
     ],
   }),
   component: FaqPage,

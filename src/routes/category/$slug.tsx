@@ -83,7 +83,7 @@ function CategoryPage() {
             {category.description}
           </p>
           <p className="mt-5 text-sm text-muted-foreground">
-            {productCount} styles · {subcategories.length} sub-ranges · MOQ from 50 pieces
+            {productCount} styles · {subcategories.length} sub-ranges · fast global shipping
           </p>
         </div>
       </section>

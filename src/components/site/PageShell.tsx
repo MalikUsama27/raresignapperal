@@ -65,7 +65,7 @@ export function CtaSection() {
             Ready to build your next kit programme?
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Send us your tech pack, sketch or reference sample. You will receive a spec sheet, MOQ and indicative
+            Send us your tech pack, sketch or reference sample. You will receive a spec sheet and indicative
             pricing within one business day.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">

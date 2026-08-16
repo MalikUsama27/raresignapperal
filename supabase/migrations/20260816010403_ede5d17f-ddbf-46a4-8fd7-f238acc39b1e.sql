@@ -1,0 +1,5 @@
+DROP POLICY IF EXISTS "Admins manage media objects" ON storage.objects;
+CREATE POLICY "Admins manage media objects" ON storage.objects
+  FOR ALL TO authenticated
+  USING (bucket_id = 'media' AND public.has_role(auth.uid(), 'admin'))
+  WITH CHECK (bucket_id = 'media' AND public.has_role(auth.uid(), 'admin'));

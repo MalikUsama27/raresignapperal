@@ -12,12 +12,12 @@ export const Route = createFileRoute("/customization")({
       {
         name: "description",
         content:
-          "Custom kit design, sublimation, embroidery, woven labels, hangtags and full private-label sportswear manufacturing from 50 pieces per design.",
+          "Custom kit design, sublimation, embroidery, woven labels, hangtags and full private-label sportswear manufacturing with fast global shipping.",
       },
       { property: "og:title", content: "Customisation & Private Label | Rare Signs Apparel" },
       {
         property: "og:description",
-        content: "Your colours, crest, sponsors, labels and packaging — manufactured to spec from 50 pieces.",
+        content: "Your colours, crest, sponsors, labels and packaging — manufactured to spec and shipped fast.",
       },
     ],
   }),
@@ -35,7 +35,7 @@ const OPTIONS = [
 
 const STEPS = [
   { step: "01", title: "Share your brief", body: "Product, quantity, colours, decoration and target delivery date." },
-  { step: "02", title: "Receive mock-ups", body: "Digital mock-ups plus a costed spec sheet with MOQ and lead time." },
+  { step: "02", title: "Receive mock-ups", body: "Digital mock-ups plus a costed spec sheet with lead time." },
   { step: "03", title: "Approve a sample", body: "Physical pre-production sample couriered for fit and colour approval." },
   { step: "04", title: "Bulk & ship", body: "Production, QC report, then air or sea freight with full export documents." },
 ];

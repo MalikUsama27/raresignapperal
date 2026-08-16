@@ -92,7 +92,7 @@ export const listProducts = createServerFn({ method: "GET" })
 
     let query = supabase
       .from("products")
-      .select("id, slug, name, sku, short_description, image_url, moq, is_featured, category_id, subcategory_id, categories(name, slug), subcategories(name, slug)", { count: "exact" });
+      .select("id, slug, name, sku, short_description, image_url, is_featured, category_id, subcategory_id, categories(name, slug), subcategories(name, slug)", { count: "exact" });
 
     if (data.category) {
       const { data: category } = await supabase
@@ -149,7 +149,7 @@ export const getProduct = createServerFn({ method: "GET" })
 
     const { data: related } = await supabase
       .from("products")
-      .select("id, slug, name, sku, short_description, image_url, moq, is_featured, category_id, subcategory_id, categories(name, slug), subcategories(name, slug)")
+      .select("id, slug, name, sku, short_description, image_url, is_featured, category_id, subcategory_id, categories(name, slug), subcategories(name, slug)")
       .eq("category_id", product.category_id)
       .neq("id", product.id)
       .limit(4);

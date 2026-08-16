@@ -7,7 +7,6 @@ export type ProductCardData = {
   name: string;
   short_description: string | null;
   image_url: string | null;
-  moq?: string | null;
   categories?: { name: string; slug: string } | null;
   subcategories?: { name: string; slug: string } | null;
 };
@@ -49,9 +48,6 @@ export function ProductCard({ product, priority = false }: { product: ProductCar
         ) : null}
         <h3 className="font-display text-lg font-semibold leading-snug">{product.name}</h3>
         <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">{product.short_description}</p>
-        {product.moq ? (
-          <p className="mt-auto pt-3 text-xs text-muted-foreground/80">MOQ · {product.moq}</p>
-        ) : null}
       </div>
     </Link>
   );

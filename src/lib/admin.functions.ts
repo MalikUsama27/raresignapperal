@@ -56,7 +56,7 @@ export const adminList = createServerFn({ method: "GET" })
       .select("*")
       .order(order, { ascending: data.ascending });
     if (error) throw new Error(error.message);
-    return (rows ?? []) as Record<string, unknown>[];
+    return (rows ?? []) as Record<string, any>[];
   });
 
 function defaultOrder(table: AdminTable) {

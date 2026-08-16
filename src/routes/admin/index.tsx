@@ -25,10 +25,10 @@ function AdminDashboard() {
   }
 
   const cards = [
-    { label: "Products", value: data.counts.products, to: "/admin/products", icon: Package },
-    { label: "Categories", value: data.counts.categories, to: "/admin/categories", icon: Boxes },
-    { label: "Blog posts", value: data.counts.posts, to: "/admin/blog", icon: FileText },
-    { label: "New inquiries", value: data.counts.newInquiries, to: "/admin/inquiries", icon: Inbox },
+    { label: "Products", value: data.totals.products, to: "/admin/products", icon: Package },
+    { label: "Categories", value: data.totals.categories, to: "/admin/categories", icon: Boxes },
+    { label: "Blog posts", value: data.totals.posts, to: "/admin/blog", icon: FileText },
+    { label: "New inquiries", value: data.totals.newInquiries, to: "/admin/inquiries", icon: Inbox },
   ];
 
   return (
@@ -64,15 +64,15 @@ function AdminDashboard() {
               <li className="text-muted-foreground">No inquiries yet.</li>
             ) : (
               data.recentInquiries.map((inquiry) => (
-                <li key={inquiry.id} className="flex items-start justify-between gap-3 border-b border-border/60 pb-3 last:border-0 last:pb-0">
+                <li key={String(inquiry["id"])} className="flex items-start justify-between gap-3 border-b border-border/60 pb-3 last:border-0 last:pb-0">
                   <div>
-                    <p className="font-medium">{inquiry.full_name}</p>
+                    <p className="font-medium">{String(inquiry["full_name"])}</p>
                     <p className="text-xs text-muted-foreground">
-                      {inquiry.company || inquiry.email} {inquiry.product_name ? `· ${inquiry.product_name}` : ""}
+                      {String(inquiry["company"] || inquiry["email"])} {inquiry["product_name"] ? `· ${String(inquiry["product_name"])}` : ""}
                     </p>
                   </div>
                   <span className="shrink-0 text-xs text-muted-foreground">
-                    {new Date(inquiry.created_at).toLocaleDateString()}
+                    {new Date(String(inquiry["created_at"])).toLocaleDateString()}
                   </span>
                 </li>
               ))
@@ -84,9 +84,9 @@ function AdminDashboard() {
           <h2 className="font-display text-lg font-semibold">Recent products</h2>
           <ul className="mt-4 space-y-3 text-sm">
             {data.recentProducts.map((product) => (
-              <li key={product.id} className="flex items-center justify-between gap-3 border-b border-border/60 pb-3 last:border-0 last:pb-0">
-                <span className="truncate">{product.name}</span>
-                <span className="shrink-0 text-xs text-muted-foreground">{product.is_published ? "Live" : "Draft"}</span>
+              <li key={String(product["id"])} className="flex items-center justify-between gap-3 border-b border-border/60 pb-3 last:border-0 last:pb-0">
+                <span className="truncate">{String(product["name"])}</span>
+                <span className="shrink-0 text-xs text-muted-foreground">{product["is_published"] ? "Live" : "Draft"}</span>
               </li>
             ))}
           </ul>

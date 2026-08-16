@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowRight, Check, MessageCircle, Package, Palette, Ruler } from "lucide-react";
+import { ArrowRight, Check, MessageCircle, Package, Palette, Truck } from "lucide-react";
 import { productQuery } from "@/lib/queries";
 import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
 import { productWhatsappMessage, whatsappLink } from "@/lib/whatsapp";
@@ -18,7 +18,6 @@ export const Route = createFileRoute("/products/$slug")({
       slug: p.slug,
       name: p.name,
       sku: p.sku,
-      moq: p.moq,
       material: p.material,
       category: p.categories?.name ?? null,
       image: p.image_url,
@@ -73,7 +72,6 @@ export const Route = createFileRoute("/products/$slug")({
               priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", valueAddedTaxIncluded: false },
               url,
               seller: { "@type": "Organization", name: COMPANY_NAME },
-              ...(loaderData.moq ? { eligibleQuantity: { "@type": "QuantitativeValue", description: loaderData.moq } } : {}),
             },
           }),
         },
@@ -146,7 +144,7 @@ function ProductPage() {
 
               <dl className="mt-7 grid gap-4 sm:grid-cols-2">
                 <Detail icon={Package} label="Product code" value={product.sku ?? "—"} />
-                <Detail icon={Ruler} label="Minimum order" value={product.moq ?? "50 pieces"} />
+                <Detail icon={Truck} label="Fast shipping" value="Worldwide air & sea freight" />
                 <Detail icon={Palette} label="Material" value={product.material ?? "—"} />
                 <Detail
                   icon={Check}

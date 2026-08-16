@@ -28,7 +28,7 @@ function AdminDashboard() {
     { label: "Products", value: data.totals.products, to: "/admin/products", icon: Package },
     { label: "Categories", value: data.totals.categories, to: "/admin/categories", icon: Boxes },
     { label: "Blog posts", value: data.totals.posts, to: "/admin/blog", icon: FileText },
-    { label: "New inquiries", value: data.totals.newInquiries, to: "/admin/inquiries", icon: Inbox },
+    { label: "Inquiries", value: data.totals.inquiries, to: "/admin/inquiries", icon: Inbox },
   ];
 
   return (
@@ -68,7 +68,7 @@ function AdminDashboard() {
                   <div>
                     <p className="font-medium">{String(inquiry["full_name"])}</p>
                     <p className="text-xs text-muted-foreground">
-                      {String(inquiry["company"] || inquiry["email"])} {inquiry["product_name"] ? `· ${String(inquiry["product_name"])}` : ""}
+                      {String(inquiry["company"] || inquiry["country"] || "—")} {inquiry["product_name"] ? `· ${String(inquiry["product_name"])}` : ""}
                     </p>
                   </div>
                   <span className="shrink-0 text-xs text-muted-foreground">

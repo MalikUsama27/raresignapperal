@@ -100,6 +100,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Rare Signs Apparel manufactures and exports premium custom sportswear, teamwear, fitness and private-label apparel to clubs, brands and distributors worldwide.",
       },
       { name: "author", content: "Rare Signs Apparel" },
+      { name: "google-site-verification", content: "1ADoFFQleZkK8Rg43YOuxUKBhiwSCIulslCZ85CHlhA" },
       { property: "og:site_name", content: "Rare Signs Apparel" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

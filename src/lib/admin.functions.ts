@@ -18,24 +18,28 @@ export type AdminTable = (typeof ADMIN_TABLES)[number];
 
 const tableSchema = z.enum(ADMIN_TABLES);
 
+/** Reads the caller's own admin role row (RLS restricts rows to the caller). */
+async function isAdmin(context: { supabase: any; userId: string }): Promise<boolean> {
+  const { data, error } = await context.supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", context.userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  return !error && Boolean(data);
+}
+
 /** Verifies the caller is the configured administrator; throws otherwise. */
 async function assertAdmin(context: { supabase: any; userId: string }) {
-  const { data, error } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId,
-    _role: "admin",
-  });
-  if (error || !data) throw new Error("Forbidden");
+  if (!(await isAdmin(context))) throw new Error("Forbidden");
 }
 
 export const getAdminSession = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
-    return { isAdmin: Boolean(data), userId: context.userId };
+    return { isAdmin: await isAdmin(context), userId: context.userId };
   });
+
 
 export const adminList = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])

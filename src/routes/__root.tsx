@@ -83,10 +83,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   loader: async ({ context }) => {
-    await Promise.all([
-      context.queryClient.ensureQueryData(navigationQuery()),
+    const [settings, categories] = await Promise.all([
       context.queryClient.ensureQueryData(siteSettingsQuery()),
+      context.queryClient.ensureQueryData(navigationQuery()),
     ]);
+    return { settings, categories };
   },
   head: () => ({
     meta: [

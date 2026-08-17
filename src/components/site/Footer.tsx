@@ -1,9 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-import { navigationQuery, siteSettingsQuery } from "@/lib/queries";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
 import { BrandLogo } from "./BrandLogo";
+import type { NavCategory } from "@/lib/catalog.functions";
 
 const QUICK_LINKS = [
   { label: "About us", to: "/about" },
@@ -15,9 +14,13 @@ const QUICK_LINKS = [
   { label: "Contact", to: "/contact" },
 ] as const;
 
-export function Footer() {
-  const { data: settings } = useQuery(siteSettingsQuery());
-  const { data: categories = [] } = useQuery(navigationQuery());
+export function Footer({
+  settings,
+  categories,
+}: {
+  settings: Record<string, string>;
+  categories: NavCategory[];
+}) {
 
   return (
     <footer className="border-t border-border bg-surface">

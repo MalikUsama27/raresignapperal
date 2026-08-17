@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, Menu, Search, X } from "lucide-react";
-import { navigationQuery } from "@/lib/queries";
 import { SearchDialog } from "./SearchDialog";
 import { BrandLogo } from "./BrandLogo";
 import { cn } from "@/lib/utils";
+import type { NavCategory } from "@/lib/catalog.functions";
 
 const PAGES = [
   { label: "Home", to: "/" },
@@ -18,8 +17,7 @@ const PAGES = [
   { label: "Contact", to: "/contact" },
 ] as const;
 
-export function Navbar() {
-  const { data: categories = [] } = useQuery(navigationQuery());
+export function Navbar({ categories }: { categories: NavCategory[] }) {
   const [scrolled, setScrolled] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);

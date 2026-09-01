@@ -43,6 +43,9 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Rare Signs Apparel",
+          url: SITE_URL,
+          logo: { "@type": "ImageObject", url: LOGO_URL, width: 1920, height: 1370 },
+          image: OG_IMAGE_URL,
           description:
             "Manufacturer and exporter of premium custom sportswear, teamwear and private-label apparel.",
           address: {

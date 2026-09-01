@@ -180,6 +180,7 @@ function RootComponent() {
         </main>
         <Footer settings={settings} categories={categories} />
       </div>
+      <MaintenanceAlert email={settings?.["email"]} />
       <WhatsAppFloat />
       <Toaster />
     </QueryClientProvider>

@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import logoFull from "@/assets/rare-signs-logo.png.asset.json";
-import logoMark from "@/assets/rare-signs-mark.png.asset.json";
 import { cn } from "@/lib/utils";
+
+/** Logos live in /public so they ship with every build (local, Cloudflare, Lovable). */
+const LOGO_FULL_SRC = "/brand/rare-signs-logo.png";
+const LOGO_MARK_SRC = "/brand/rare-signs-mark.png";
 
 type BrandLogoProps = {
   className?: string;

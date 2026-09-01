@@ -21,7 +21,7 @@ export function BrandLogo({ className, markClassName, variant = "lockup" }: Bran
     return (
       <Link to="/" className={cn("inline-flex items-center", className)} aria-label="Rare Signs Apparel — home">
         <img
-          src={logoFull.url}
+          src={LOGO_FULL_SRC}
           alt="Rare Signs Apparel logo"
           className={cn("h-16 w-auto object-contain", markClassName)}
           loading="lazy"
@@ -33,7 +33,7 @@ export function BrandLogo({ className, markClassName, variant = "lockup" }: Bran
   return (
     <Link to="/" className={cn("flex items-center gap-3", className)} aria-label="Rare Signs Apparel — home">
       <img
-        src={logoMark.url}
+        src={LOGO_MARK_SRC}
         alt="Rare Signs Apparel logo"
         className={cn("h-9 w-auto shrink-0 object-contain md:h-10", markClassName)}
       />

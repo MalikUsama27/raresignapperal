@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { siteSettingsQuery } from "@/lib/queries";
+import { SocialLinks } from "@/components/site/SocialLinks";
 import { PageHero } from "@/components/site/PageShell";
 import { InquiryForm } from "@/components/site/InquiryDialog";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
@@ -87,6 +88,11 @@ function ContactPage() {
             >
               <MessageCircle className="size-4" /> Chat on WhatsApp
             </a>
+
+            <div className="mt-9">
+              <h3 className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Follow us</h3>
+              <SocialLinks settings={settings as Record<string, string>} className="mt-3" />
+            </div>
           </div>
 
           <Reveal>

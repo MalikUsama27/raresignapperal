@@ -87,6 +87,11 @@ function ContactPage() {
             >
               <MessageCircle className="size-4" /> Chat on WhatsApp
             </a>
+
+            <div className="mt-9">
+              <h3 className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Follow us</h3>
+              <SocialLinks settings={settings as Record<string, string>} className="mt-3" />
+            </div>
           </div>
 
           <Reveal>

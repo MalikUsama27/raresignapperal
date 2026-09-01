@@ -16,6 +16,8 @@ import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import { Toaster } from "@/components/ui/sonner";
 import { navigationQuery, siteSettingsQuery } from "@/lib/queries";
+import { LOGO_URL, OG_IMAGE_URL, SITE_URL } from "@/lib/site";
+import { MaintenanceAlert } from "@/components/site/MaintenanceAlert";
 
 function NotFoundComponent() {
   return (

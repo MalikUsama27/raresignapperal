@@ -30,6 +30,11 @@ export const Route = createFileRoute("/")({
         content:
           "Premium sportswear manufacturing and export for clubs, brands and distributors worldwide. Request a quote in one business day.",
       },
+      { property: "og:image", content: OG_IMAGE_URL },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Rare Signs Apparel — custom sportswear manufacturer" },
+      { name: "twitter:image", content: OG_IMAGE_URL },
     ],
     scripts: [
       {

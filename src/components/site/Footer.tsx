@@ -36,6 +36,7 @@ export function Footer({
           >
             <MessageCircle className="size-4" /> WhatsApp our export team
           </a>
+          <SocialLinks settings={settings} className="mt-6" />
         </div>
 
         <div>

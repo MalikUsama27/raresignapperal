@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
+import { SocialLinks } from "./SocialLinks";
 import { BrandLogo } from "./BrandLogo";
 import type { NavCategory } from "@/lib/catalog.functions";
 

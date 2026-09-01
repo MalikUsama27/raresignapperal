@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { siteSettingsQuery } from "@/lib/queries";
+import { SocialLinks } from "@/components/site/SocialLinks";
 import { PageHero } from "@/components/site/PageShell";
 import { InquiryForm } from "@/components/site/InquiryDialog";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";

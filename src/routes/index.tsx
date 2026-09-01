@@ -8,7 +8,7 @@ import { WorldMap } from "@/components/site/WorldMap";
 import { InquiryDialog } from "@/components/site/InquiryDialog";
 import { CtaSection } from "@/components/site/PageShell";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { canonical } from "@/lib/site";
+import { canonical, LOGO_URL, OG_IMAGE_URL, SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
@@ -30,6 +30,11 @@ export const Route = createFileRoute("/")({
         content:
           "Premium sportswear manufacturing and export for clubs, brands and distributors worldwide. Request a quote in one business day.",
       },
+      { property: "og:image", content: OG_IMAGE_URL },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Rare Signs Apparel — custom sportswear manufacturer" },
+      { name: "twitter:image", content: OG_IMAGE_URL },
     ],
     scripts: [
       {
@@ -38,6 +43,9 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Rare Signs Apparel",
+          url: SITE_URL,
+          logo: { "@type": "ImageObject", url: LOGO_URL, width: 1920, height: 1370 },
+          image: OG_IMAGE_URL,
           description:
             "Manufacturer and exporter of premium custom sportswear, teamwear and private-label apparel.",
           address: {

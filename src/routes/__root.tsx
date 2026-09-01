@@ -16,6 +16,8 @@ import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import { Toaster } from "@/components/ui/sonner";
 import { navigationQuery, siteSettingsQuery } from "@/lib/queries";
+import { LOGO_URL, OG_IMAGE_URL, SITE_URL } from "@/lib/site";
+import { MaintenanceAlert } from "@/components/site/MaintenanceAlert";
 
 function NotFoundComponent() {
   return (
@@ -100,6 +102,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Rare Signs Apparel manufactures and exports premium custom sportswear, teamwear, fitness and private-label apparel to clubs, brands and distributors worldwide.",
       },
       { name: "author", content: "Rare Signs Apparel" },
+      { name: "theme-color", content: "#0a0a0a" },
+      { name: "application-name", content: "Rare Signs Apparel" },
+      { name: "apple-mobile-web-app-title", content: "Rare Signs Apparel" },
       { name: "google-site-verification", content: "1ADoFFQleZkK8Rg43YOuxUKBhiwSCIulslCZ85CHlhA" },
       { property: "og:site_name", content: "Rare Signs Apparel" },
       { property: "og:type", content: "website" },
@@ -113,9 +118,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/favicon.png" },
-
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "icon", href: "/favicon-16.png", type: "image/png", sizes: "16x16" },
+      { rel: "icon", href: "/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { rel: "icon", href: "/favicon-192.png", type: "image/png", sizes: "192x192" },
+      { rel: "icon", href: "/favicon-512.png", type: "image/png", sizes: "512x512" },
+      { rel: "apple-touch-icon", href: "/favicon-180.png", sizes: "180x180" },
+      { rel: "manifest", href: "/site.webmanifest" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Rare Signs Apparel",
+          alternateName: "Rare Signs",
+          url: SITE_URL,
+          logo: {
+            "@type": "ImageObject",
+            url: LOGO_URL,
+            width: 1920,
+            height: 1370,
+          },
+          image: OG_IMAGE_URL,
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -152,6 +180,7 @@ function RootComponent() {
         </main>
         <Footer settings={settings} categories={categories} />
       </div>
+      <MaintenanceAlert email={settings?.["email"]} />
       <WhatsAppFloat />
       <Toaster />
     </QueryClientProvider>

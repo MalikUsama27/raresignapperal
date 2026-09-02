@@ -18,7 +18,7 @@ function remaining(target: Date) {
   };
 }
 
-export function MaintenanceAlert({ email }: { email?: string }) {
+export function MaintenanceAlert({ email }: { email?: string | undefined }) {
   const [open, setOpen] = useState(false);
   const [left, setLeft] = useState<ReturnType<typeof remaining>>(null);
 

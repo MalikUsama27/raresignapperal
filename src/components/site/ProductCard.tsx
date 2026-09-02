@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
+import { FadeInImage } from "./Motion";
 
 export type ProductCardData = {
   id: string;
@@ -20,13 +21,13 @@ export function ProductCard({ product, priority = false }: { product: ProductCar
     >
       <div className="relative aspect-4/3 overflow-hidden bg-elevated">
         {product.image_url ? (
-          <img
+          <FadeInImage
             src={product.image_url}
             alt={product.name}
             width={1200}
             height={900}
             loading={priority ? "eager" : "lazy"}
-            className="size-full object-cover opacity-90 transition-transform duration-700 ease-out group-hover:scale-[1.06] group-hover:opacity-100"
+            className="size-full object-cover opacity-90 transition-[transform,opacity,filter] duration-700 ease-out group-hover:scale-[1.06] group-hover:opacity-100"
           />
         ) : null}
         <div className="absolute inset-0 bg-fade-bottom" />

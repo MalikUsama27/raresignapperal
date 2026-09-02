@@ -17,6 +17,7 @@ import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import { Toaster } from "@/components/ui/sonner";
 import { navigationQuery, siteSettingsQuery } from "@/lib/queries";
 import { LOGO_URL, OG_IMAGE_URL, SITE_URL } from "@/lib/site";
+import { PageTransition } from "@/components/site/PageTransition";
 import { MaintenanceAlert } from "@/components/site/MaintenanceAlert";
 
 function NotFoundComponent() {
@@ -176,7 +177,9 @@ function RootComponent() {
         <Navbar categories={categories} />
         <main className="flex-1">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
+          <PageTransition>
+            <Outlet />
+          </PageTransition>
         </main>
         <Footer settings={settings} categories={categories} />
       </div>

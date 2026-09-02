@@ -50,7 +50,10 @@ export function Navbar({ categories }: { categories: NavCategory[] }) {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
           scrolled ? "border-b border-border bg-background/85 backdrop-blur-xl" : "border-b border-transparent",
@@ -84,10 +87,11 @@ export function Navbar({ categories }: { categories: NavCategory[] }) {
               <AnimatePresence>
                 {megaOpen ? (
                   <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.22, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: 10, scale: 0.985 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.99 }}
+                    transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ willChange: "transform, opacity" }}
                     className="absolute left-1/2 top-full w-[min(72rem,calc(100vw-3rem))] -translate-x-1/2 pt-3"
                   >
                     <div className="glass-panel grid gap-x-8 gap-y-6 rounded-2xl p-6 shadow-[var(--shadow-elevate)] md:grid-cols-3 lg:grid-cols-4">
@@ -206,7 +210,7 @@ export function Navbar({ categories }: { categories: NavCategory[] }) {
             </motion.div>
           ) : null}
         </AnimatePresence>
-      </header>
+      </motion.header>
 
       <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </>

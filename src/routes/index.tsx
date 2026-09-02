@@ -186,7 +186,7 @@ function Home() {
                 All markets
               </Link>
             </div>
-          </Reveal>
+          </Entrance>
         </div>
       </section>
 

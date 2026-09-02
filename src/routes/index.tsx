@@ -3,7 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, BadgeCheck, Boxes, Factory, Globe2, Palette, ShieldCheck, Timer, Truck } from "lucide-react";
 import { homeContentQuery, siteSettingsQuery } from "@/lib/queries";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
-import { AnimatedCounter, Entrance } from "@/components/site/Motion";
+import { AnimatedCounter, Entrance, FadeInImage } from "@/components/site/Motion";
 import { ProductCard } from "@/components/site/ProductCard";
 import { WorldMap } from "@/components/site/WorldMap";
 import { InquiryDialog } from "@/components/site/InquiryDialog";
@@ -107,12 +107,12 @@ function Home() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-hero pt-28 pb-16 md:pt-36 md:pb-24">
-        <img
+        <FadeInImage
           src="/images/hero.jpg"
           alt="Athletes wearing premium custom sportswear"
           width={1920}
           height={1080}
-          className="pointer-events-none absolute inset-0 size-full object-cover opacity-35"
+          className="pointer-events-none absolute inset-0 size-full scale-[1.04] animate-hero-zoom object-cover opacity-35"
         />
         <div className="pointer-events-none absolute inset-0 bg-fade-bottom" />
         <div className="container-page relative grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">

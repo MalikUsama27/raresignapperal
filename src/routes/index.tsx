@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, BadgeCheck, Boxes, Factory, Globe2, Palette, ShieldCheck, Timer, Truck } from "lucide-react";
 import { homeContentQuery, siteSettingsQuery } from "@/lib/queries";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
+import { AnimatedCounter, Entrance } from "@/components/site/Motion";
 import { ProductCard } from "@/components/site/ProductCard";
 import { WorldMap } from "@/components/site/WorldMap";
 import { InquiryDialog } from "@/components/site/InquiryDialog";
@@ -90,11 +91,16 @@ function Home() {
   const { data } = useSuspenseQuery(homeContentQuery());
   const { data: settings } = useSuspenseQuery(siteSettingsQuery());
 
+  const teamSize = String(settings["team_size"] ?? "50+");
   const stats = [
-    { value: `${settings["countries_served"] ?? "40"}+`, label: "Export markets" },
-    { value: `${Number(settings["units_per_month"] ?? 0).toLocaleString()}`, label: "Units per month" },
-    { value: `${settings["team_size"] ?? "50+"}`, label: "In-house team" },
-    { value: "10 Yrs", label: "Experience" },
+    { count: Number(settings["countries_served"] ?? 40), suffix: "+", label: "Export markets" },
+    { count: Number(settings["units_per_month"] ?? 0), suffix: "", label: "Units per month" },
+    {
+      count: Number(teamSize.replace(/[^0-9]/g, "")) || 50,
+      suffix: teamSize.includes("+") ? "+" : "",
+      label: "In-house team",
+    },
+    { count: 10, suffix: " Yrs", label: "Experience" },
   ];
 
   return (
@@ -111,22 +117,22 @@ function Home() {
         <div className="pointer-events-none absolute inset-0 bg-fade-bottom" />
         <div className="container-page relative grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
-            <Reveal>
+            <Entrance>
               <p className="eyebrow">Manufacturer &amp; exporter · Since {settings["founded_year"]}</p>
-            </Reveal>
-            <Reveal delay={0.08}>
+            </Entrance>
+            <Entrance delay={0.08}>
               <h1 className="display-xl mt-5 text-balance">
                 Delivering premium sportswear <span className="text-gradient">worldwide</span>
               </h1>
-            </Reveal>
-            <Reveal delay={0.16}>
+            </Entrance>
+            <Entrance delay={0.16}>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
                 Rare Signs Apparel manufactures competition-grade teamwear, fitness apparel and private-label ranges for
                 clubs, brands and distributors in {settings["countries_served"]}+ countries. Full customisation, low
                 minimums, verified quality control.
               </p>
-            </Reveal>
-            <Reveal delay={0.24}>
+            </Entrance>
+            <Entrance delay={0.24}>
               <div className="mt-9 flex flex-wrap gap-3">
                 <InquiryDialog
                   trigger={
@@ -145,13 +151,13 @@ function Home() {
                   Explore products
                 </Link>
               </div>
-            </Reveal>
-            <Reveal delay={0.32}>
+            </Entrance>
+            <Entrance delay={0.32}>
               <dl className="mt-12 grid max-w-lg grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
                 {stats.map((stat) => (
                   <div key={stat.label}>
                     <dt className="font-display text-2xl font-bold tracking-tight text-foreground md:text-[1.75rem]">
-                      {stat.value}
+                      <AnimatedCounter value={stat.count} suffix={stat.suffix} />
                     </dt>
                     <dd className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                       {stat.label}
@@ -159,10 +165,10 @@ function Home() {
                   </div>
                 ))}
               </dl>
-            </Reveal>
+            </Entrance>
           </div>
 
-          <Reveal delay={0.2}>
+          <Entrance delay={0.2}>
             <WorldMap countries={data.countries} />
             <div className="mt-4 flex flex-wrap gap-2">
               {data.countries.slice(0, 6).map((country) => (

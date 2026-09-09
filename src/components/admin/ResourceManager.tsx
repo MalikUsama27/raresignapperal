@@ -529,6 +529,14 @@ function serialize(form: Row, fields: FieldDef[]) {
       case "boolean":
         values[field.name] = Boolean(raw);
         break;
+      case "gallery":
+        values[field.name] = Array.isArray(raw)
+          ? raw.filter(Boolean).map(String)
+          : String(raw ?? "")
+              .split(",")
+              .map((item) => item.trim())
+              .filter(Boolean);
+        break;
       case "csv":
         values[field.name] = String(raw ?? "")
           .split(",")
@@ -556,6 +564,7 @@ function serialize(form: Row, fields: FieldDef[]) {
 }
 
 function deserialize(value: any, field: FieldDef) {
+  if (field.type === "gallery") return Array.isArray(value) ? value.filter(Boolean).map(String) : [];
   if (field.type === "csv") return Array.isArray(value) ? value.join(", ") : (value ?? "");
   if (field.type === "json") return value ? JSON.stringify(value, null, 2) : "";
   if (field.type === "date") return value ? String(value).slice(0, 10) : "";

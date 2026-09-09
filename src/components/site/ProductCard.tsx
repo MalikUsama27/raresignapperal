@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { FadeInImage } from "./Motion";
@@ -8,21 +9,52 @@ export type ProductCardData = {
   name: string;
   short_description: string | null;
   image_url: string | null;
+  gallery?: string[] | null;
   categories?: { name: string; slug: string } | null;
   subcategories?: { name: string; slug: string } | null;
 };
 
 export function ProductCard({ product, priority = false }: { product: ProductCardData; priority?: boolean }) {
+  const images = [product.image_url, ...(product.gallery ?? [])].filter(
+    (src, index, all): src is string => Boolean(src) && all.indexOf(src) === index,
+  );
+  const [hoverIndex, setHoverIndex] = useState(0);
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => () => {
+    if (timer.current) clearInterval(timer.current);
+  }, []);
+
+  function startCycle() {
+    if (images.length < 2 || timer.current) return;
+    setHoverIndex(1);
+    timer.current = setInterval(() => {
+      setHoverIndex((current) => (current + 1) % images.length);
+    }, 1600);
+  }
+
+  function stopCycle() {
+    if (timer.current) {
+      clearInterval(timer.current);
+      timer.current = null;
+    }
+    setHoverIndex(0);
+  }
+
   return (
     <Link
       to="/products/$slug"
       params={{ slug: product.slug }}
+      onMouseEnter={startCycle}
+      onMouseLeave={stopCycle}
+      onFocus={startCycle}
+      onBlur={stopCycle}
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-500 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-elevate)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       <div className="relative aspect-4/3 overflow-hidden bg-elevated">
-        {product.image_url ? (
+        {images[0] ? (
           <FadeInImage
-            src={product.image_url}
+            src={images[0]}
             alt={product.name}
             width={1200}
             height={900}
@@ -30,6 +62,17 @@ export function ProductCard({ product, priority = false }: { product: ProductCar
             className="size-full object-cover opacity-90 transition-[transform,opacity,filter] duration-700 ease-out group-hover:scale-[1.06] group-hover:opacity-100"
           />
         ) : null}
+        {images.slice(1).map((src, index) => (
+          <img
+            key={src}
+            src={src}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            className="absolute inset-0 size-full object-cover transition-opacity duration-700 ease-out group-hover:scale-[1.06]"
+            style={{ opacity: hoverIndex === index + 1 ? 1 : 0 }}
+          />
+        ))}
         <div className="absolute inset-0 bg-fade-bottom" />
         {product.categories ? (
           <span className="absolute left-4 top-4 rounded-full border border-border bg-background/70 px-3 py-1 text-[11px] font-medium tracking-wide text-muted-foreground backdrop-blur-sm">

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Check, MessageCircle, Package, Palette, Truck } from "lucide-react";
@@ -87,6 +88,9 @@ function ProductPage() {
   if (!data) return null;
   const { product, related } = data;
   const specs = (product.specifications ?? {}) as Record<string, string>;
+  const images = [product.image_url, ...((product.gallery ?? []) as string[])].filter(
+    (src, index, all): src is string => Boolean(src) && all.indexOf(src) === index,
+  );
 
   return (
     <>
@@ -110,29 +114,7 @@ function ProductPage() {
 
           <div className="grid gap-12 lg:grid-cols-2">
             <Reveal>
-              <div className="overflow-hidden rounded-2xl border border-border bg-surface">
-                {product.image_url ? (
-                  <img
-                    src={product.image_url}
-                    alt={product.name}
-                    width={1200}
-                    height={900}
-                    className="aspect-4/3 w-full object-cover"
-                  />
-                ) : null}
-              </div>
-              <div className="mt-4 grid grid-cols-3 gap-3">
-                {[product.image_url, product.image_url, product.image_url].filter(Boolean).map((src, index) => (
-                  <div key={index} className="overflow-hidden rounded-lg border border-border bg-surface">
-                    <img
-                      src={src as string}
-                      alt={`${product.name} view ${index + 1}`}
-                      loading="lazy"
-                      className="aspect-square w-full object-cover opacity-70 transition-opacity hover:opacity-100"
-                    />
-                  </div>
-                ))}
-              </div>
+              <ProductGallery name={product.name} images={images} />
             </Reveal>
 
             <div>
@@ -277,6 +259,56 @@ function Detail({
         <Icon className="size-3.5 text-primary" /> {label}
       </dt>
       <dd className="mt-1.5 text-sm">{value}</dd>
+    </div>
+  );
+}
+
+function ProductGallery({ name, images }: { name: string; images: string[] }) {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    setActive(0);
+  }, [images.join("|")]);
+
+  if (!images.length) return null;
+
+  return (
+    <div>
+      <div className="overflow-hidden rounded-2xl border border-border bg-surface">
+        <img
+          key={images[active]}
+          src={images[active]}
+          alt={name}
+          width={1200}
+          height={900}
+          className="aspect-4/3 w-full animate-in fade-in object-cover duration-500"
+        />
+      </div>
+      {images.length > 1 ? (
+        <div className="mt-4 grid grid-cols-4 gap-3">
+          {images.map((src, index) => (
+            <button
+              key={src}
+              type="button"
+              onClick={() => setActive(index)}
+              aria-label={`${name} view ${index + 1}`}
+              aria-current={index === active}
+              className={`overflow-hidden rounded-lg border bg-surface transition-colors ${
+                index === active ? "border-primary" : "border-border hover:border-primary/50"
+              }`}
+            >
+              <img
+                src={src}
+                alt={`${name} view ${index + 1}`}
+                loading="lazy"
+                className={`aspect-square w-full object-cover transition-opacity duration-300 ${
+                  index === active ? "opacity-100" : "opacity-70 hover:opacity-100"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }

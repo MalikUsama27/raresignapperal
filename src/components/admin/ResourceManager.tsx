@@ -362,6 +362,98 @@ function FieldInput({
     );
   }
 
+  if (field.type === "gallery") {
+    const items: string[] = Array.isArray(value)
+      ? value.filter(Boolean).map(String)
+      : String(value ?? "")
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean);
+
+    async function onFiles(files: File[]) {
+      setUploading(true);
+      try {
+        const urls: string[] = [];
+        for (const file of files) {
+          const buffer = await file.arrayBuffer();
+          let binary = "";
+          const bytes = new Uint8Array(buffer);
+          for (let i = 0; i < bytes.length; i += 1) binary += String.fromCharCode(bytes[i]!);
+          const result = await upload({
+            data: { fileName: file.name, contentType: file.type, base64: btoa(binary) },
+          });
+          urls.push(result.url);
+        }
+        onChange([...items, ...urls]);
+        toast.success(urls.length > 1 ? `${urls.length} images added to this product` : "Image added to this product");
+      } catch (error) {
+        toast.error((error as Error).message || "Upload failed");
+      } finally {
+        setUploading(false);
+      }
+    }
+
+    function move(index: number, direction: -1 | 1) {
+      const next = [...items];
+      const target = index + direction;
+      if (target < 0 || target >= next.length) return;
+      const [moved] = next.splice(index, 1);
+      next.splice(target, 0, moved!);
+      onChange(next);
+    }
+
+    return (
+      <div className={`space-y-2 ${wrapperClass}`}>
+        {label}
+        <div className="flex flex-wrap gap-3">
+          {items.map((src, index) => (
+            <div key={`${src}-${index}`} className="relative">
+              <img src={src} alt="" className="size-20 rounded-md border border-border object-cover" />
+              <div className="mt-1 flex items-center justify-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => move(index, -1)}
+                  className="rounded border border-border px-1.5 py-0.5 text-[10px]"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  onClick={() => move(index, 1)}
+                  className="rounded border border-border px-1.5 py-0.5 text-[10px]"
+                >
+                  →
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onChange(items.filter((_, i) => i !== index))}
+                  className="rounded border border-destructive/50 px-1.5 py-0.5 text-[10px] text-destructive"
+                >
+                  <Trash2 className="size-3" />
+                </button>
+              </div>
+            </div>
+          ))}
+          <label className="inline-flex h-20 cursor-pointer items-center gap-2 rounded-md border border-dashed border-border px-4 text-xs font-semibold hover:border-primary/50">
+            {uploading ? <Loader2 className="size-4 animate-spin" /> : <Upload className="size-4" />} Add images
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={(event) => {
+                const files = Array.from(event.target.files ?? []);
+                if (files.length) void onFiles(files);
+                event.target.value = "";
+              }}
+            />
+          </label>
+        </div>
+        {field.help ? <p className="text-xs text-muted-foreground">{field.help}</p> : null}
+      </div>
+    );
+  }
+
   if (field.type === "image") {
     async function onFile(file: File) {
       setUploading(true);
@@ -437,6 +529,14 @@ function serialize(form: Row, fields: FieldDef[]) {
       case "boolean":
         values[field.name] = Boolean(raw);
         break;
+      case "gallery":
+        values[field.name] = Array.isArray(raw)
+          ? raw.filter(Boolean).map(String)
+          : String(raw ?? "")
+              .split(",")
+              .map((item) => item.trim())
+              .filter(Boolean);
+        break;
       case "csv":
         values[field.name] = String(raw ?? "")
           .split(",")
@@ -464,6 +564,7 @@ function serialize(form: Row, fields: FieldDef[]) {
 }
 
 function deserialize(value: any, field: FieldDef) {
+  if (field.type === "gallery") return Array.isArray(value) ? value.filter(Boolean).map(String) : [];
   if (field.type === "csv") return Array.isArray(value) ? value.join(", ") : (value ?? "");
   if (field.type === "json") return value ? JSON.stringify(value, null, 2) : "";
   if (field.type === "date") return value ? String(value).slice(0, 10) : "";

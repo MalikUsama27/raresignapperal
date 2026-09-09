@@ -8,6 +8,7 @@ export type FieldType =
   | "number"
   | "boolean"
   | "image"
+  | "gallery"
   | "csv"
   | "json"
   | "date"
@@ -115,7 +116,14 @@ export const PRODUCT_RESOURCE: ResourceDef = {
     { name: "colors", label: "Available colours", type: "csv", help: "Comma separated", full: true },
     { name: "customization", label: "Customisation notes", type: "textarea", optional: true, full: true },
     { name: "image_url", label: "Primary image", type: "image", optional: true, full: true },
-    { name: "gallery", label: "Gallery images", type: "csv", help: "Image URLs, comma separated — first one is shown first", optional: true, full: true },
+    {
+      name: "gallery",
+      label: "Gallery images",
+      type: "gallery",
+      help: "Upload as many images as you like for this same product — they appear as thumbnails on the product page and on hover in listings.",
+      optional: true,
+      full: true,
+    },
     { name: "specifications", label: "Specifications", type: "json", help: 'JSON object, e.g. {"GSM":"180"}', optional: true, full: true },
     { name: "sort_order", label: "Display order", type: "number" },
     { name: "is_featured", label: "Featured product", type: "boolean" },

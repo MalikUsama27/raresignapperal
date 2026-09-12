@@ -97,15 +97,26 @@ function CategoryPage() {
                 <Link
                   to="/category/$category/$subcategory"
                   params={{ category: category.slug, subcategory: sub.slug }}
-                  className="group flex h-full flex-col rounded-xl border border-border bg-surface p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
+                  className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
                 >
-                  <p className="font-display text-base font-semibold">{sub.name}</p>
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{sub.description}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
-                    View styles <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-                  </span>
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
+                    <img
+                      src={sub.image_url ?? category.image_url ?? "/images/cat-sportswear.jpg"}
+                      alt={sub.name}
+                      loading="lazy"
+                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <p className="font-display text-base font-semibold">{sub.name}</p>
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{sub.description}</p>
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
+                      View styles <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
                 </Link>
               </Reveal>
+
             ))}
           </div>
         </div>

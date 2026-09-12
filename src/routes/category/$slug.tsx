@@ -102,6 +102,8 @@ function CategoryPage() {
                   <img
                     src={sub.image_url ?? category.image_url ?? "/images/cat-sportswear.jpg"}
                     alt={sub.name}
+                    width={1200}
+                    height={900}
                     loading="lazy"
                     className="absolute inset-0 size-full object-cover opacity-40 transition-all duration-700 group-hover:scale-105 group-hover:opacity-55"
                   />

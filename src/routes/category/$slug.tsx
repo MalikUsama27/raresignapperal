@@ -91,32 +91,32 @@ function CategoryPage() {
       <section className="border-t border-border py-16 md:py-20">
         <div className="container-page">
           <SectionHeading eyebrow="Sub-ranges" title={`Explore ${category.name.toLowerCase()} sub-ranges`} />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {subcategories.map((sub, index) => (
               <Reveal key={sub.id} delay={index * 0.03} className="h-full">
                 <Link
                   to="/category/$category/$subcategory"
                   params={{ category: category.slug, subcategory: sub.slug }}
-                  className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
+                  className="group relative flex h-full min-h-56 flex-col justify-end overflow-hidden rounded-2xl border border-border p-6 transition-all duration-500 hover:-translate-y-1 hover:border-primary/40"
                 >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
-                    <img
-                      src={sub.image_url ?? category.image_url ?? "/images/cat-sportswear.jpg"}
-                      alt={sub.name}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col p-5">
-                    <p className="font-display text-base font-semibold">{sub.name}</p>
+                  <img
+                    src={sub.image_url ?? category.image_url ?? "/images/cat-sportswear.jpg"}
+                    alt={sub.name}
+                    loading="lazy"
+                    className="absolute inset-0 size-full object-cover opacity-40 transition-all duration-700 group-hover:scale-105 group-hover:opacity-55"
+                  />
+                  <div className="absolute inset-0 bg-fade-bottom" />
+                  <div className="relative">
+                    {category.tagline ? (
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
+                        {category.tagline}
+                      </p>
+                    ) : null}
+                    <h3 className="mt-2 font-display text-xl font-semibold">{sub.name}</h3>
                     <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{sub.description}</p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
-                      View styles <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-                    </span>
                   </div>
                 </Link>
               </Reveal>
-
             ))}
           </div>
         </div>

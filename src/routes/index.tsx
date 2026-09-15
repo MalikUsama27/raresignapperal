@@ -291,7 +291,7 @@ function Home() {
               description="Nothing is subcontracted out of sight. Every stage happens on our floor, which is why we can commit to dates and hold colour across reorders."
             />
             <img
-              src="/images/manufacturing.jpg"
+              src="/images/menu.jpeg"
               alt="Rare Signs Apparel production floor with stitching lines"
               width={1200}
               height={900}

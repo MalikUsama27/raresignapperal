@@ -76,8 +76,8 @@ function AboutPage() {
           </div>
           <Reveal>
             <img
-              src="/images/manufacturing.jpg"
-              alt="Rare Signs Apparel factory floor in Sialkot"
+              src="/images/about-precision-stitch.jpg"
+              alt="Rare Signs Apparel — precision in every stitch, professional sportswear manufacturing"
               width={1200}
               height={900}
               loading="lazy"

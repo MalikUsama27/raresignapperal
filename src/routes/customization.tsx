@@ -74,8 +74,8 @@ function CustomizationPage() {
               description="Most clients approve a design in two rounds. Keep artwork in vector where possible — it prints sharper and speeds up approval."
             />
             <img
-              src="/images/cat-teamwear.jpg"
-              alt="Custom sublimated team kits produced by Rare Signs Apparel"
+              src="/images/custom-order-process.jpg"
+              alt="How to place your custom order with Rare Signs Apparel — four-step process"
               width={1200}
               height={900}
               loading="lazy"

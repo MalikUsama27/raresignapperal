@@ -19,9 +19,9 @@ const DESCRIPTION =
 
 export const Route = createFileRoute("/blog/")({
   validateSearch: searchSchema,
-  loaderDeps: ({ search }) => ({ category: search.category }),
+  loaderDeps: ({ search }) => ({ category: search.category, search: search.search }),
   loader: async ({ context, deps }) => {
-    await context.queryClient.ensureQueryData(blogPostsQuery({ category: deps.category }));
+    await context.queryClient.ensureQueryData(blogPostsQuery({ category: deps.category, search: deps.search }));
   },
   head: () => ({
     meta: [

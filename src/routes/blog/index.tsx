@@ -8,7 +8,10 @@ import { Reveal } from "@/components/site/Reveal";
 import { canonical } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const searchSchema = z.object({ category: z.string().trim().max(120).optional() });
+const searchSchema = z.object({
+  category: z.string().trim().max(120).optional(),
+  search: z.string().trim().max(120).optional(),
+});
 
 const TITLE = "Sportswear Manufacturing Insights & Export Guides | Rare Signs Apparel";
 const DESCRIPTION =

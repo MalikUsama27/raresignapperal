@@ -40,7 +40,7 @@ export const Route = createFileRoute("/blog/")({
 
 function BlogIndex() {
   const { category, search } = Route.useSearch();
-  const navigate = useNavigate({ from: "/blog" });
+  const navigate = useNavigate();
   const { data } = useSuspenseQuery(blogPostsQuery({ category, search }));
   const posts = data.items;
   const [lead, ...rest] = posts;
@@ -60,7 +60,8 @@ function BlogIndex() {
               event.preventDefault();
               const value = new FormData(event.currentTarget).get("q");
               navigate({
-                search: (prev) => ({ ...prev, search: typeof value === "string" && value.trim() ? value.trim() : undefined }),
+                to: "/blog",
+                search: { category, search: typeof value === "string" && value.trim() ? value.trim() : undefined },
               });
             }}
             className="flex max-w-md items-center gap-3 rounded-full border border-border bg-surface px-5 py-2.5"

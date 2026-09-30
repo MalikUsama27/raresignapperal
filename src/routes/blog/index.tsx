@@ -1,7 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock, Search } from "lucide-react";
 import { blogPostsQuery } from "@/lib/queries";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
@@ -39,8 +39,9 @@ export const Route = createFileRoute("/blog/")({
 });
 
 function BlogIndex() {
-  const { category } = Route.useSearch();
-  const { data } = useSuspenseQuery(blogPostsQuery({ category }));
+  const { category, search } = Route.useSearch();
+  const navigate = useNavigate({ from: "/blog" });
+  const { data } = useSuspenseQuery(blogPostsQuery({ category, search }));
   const posts = data.items;
   const [lead, ...rest] = posts;
 

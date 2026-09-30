@@ -1,14 +1,17 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock, Search } from "lucide-react";
 import { blogPostsQuery } from "@/lib/queries";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { canonical } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const searchSchema = z.object({ category: z.string().trim().max(120).optional() });
+const searchSchema = z.object({
+  category: z.string().trim().max(120).optional(),
+  search: z.string().trim().max(120).optional(),
+});
 
 const TITLE = "Sportswear Manufacturing Insights & Export Guides | Rare Signs Apparel";
 const DESCRIPTION =
@@ -16,9 +19,9 @@ const DESCRIPTION =
 
 export const Route = createFileRoute("/blog/")({
   validateSearch: searchSchema,
-  loaderDeps: ({ search }) => ({ category: search.category }),
+  loaderDeps: ({ search }) => ({ category: search.category, search: search.search }),
   loader: async ({ context, deps }) => {
-    await context.queryClient.ensureQueryData(blogPostsQuery({ category: deps.category }));
+    await context.queryClient.ensureQueryData(blogPostsQuery({ category: deps.category, search: deps.search }));
   },
   head: () => ({
     meta: [
@@ -36,8 +39,9 @@ export const Route = createFileRoute("/blog/")({
 });
 
 function BlogIndex() {
-  const { category } = Route.useSearch();
-  const { data } = useSuspenseQuery(blogPostsQuery({ category }));
+  const { category, search } = Route.useSearch();
+  const navigate = useNavigate();
+  const { data } = useSuspenseQuery(blogPostsQuery({ category, search }));
   const posts = data.items;
   const [lead, ...rest] = posts;
 
@@ -51,10 +55,39 @@ function BlogIndex() {
 
       <section className="border-t border-border py-16 md:py-24">
         <div className="container-page">
-          <div className="flex flex-wrap gap-2">
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              const value = new FormData(event.currentTarget).get("q");
+              navigate({
+                to: "/blog",
+                search: { category, search: typeof value === "string" && value.trim() ? value.trim() : undefined },
+              });
+            }}
+            className="flex max-w-md items-center gap-3 rounded-full border border-border bg-surface px-5 py-2.5"
+          >
+            <Search className="size-4 shrink-0 text-muted-foreground" />
+            <input
+              key={search ?? ""}
+              type="search"
+              name="q"
+              defaultValue={search ?? ""}
+              maxLength={120}
+              placeholder="Search articles — fabric, export, sublimation…"
+              aria-label="Search articles"
+              className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+            />
+            {search ? (
+              <Link to="/blog" search={{ category }} className="shrink-0 text-xs font-semibold text-primary">
+                Clear
+              </Link>
+            ) : null}
+          </form>
+
+          <div className="mt-6 flex flex-wrap gap-2">
             <Link
               to="/blog"
-              search={{}}
+              search={{ search }}
               className={cn(
                 "rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] transition-colors",
                 !category ? "border-primary/50 bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground",
@@ -66,7 +99,7 @@ function BlogIndex() {
               <Link
                 key={item.id}
                 to="/blog"
-                search={{ category: item.slug }}
+                search={{ category: item.slug, search }}
                 className={cn(
                   "rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] transition-colors",
                   category === item.slug

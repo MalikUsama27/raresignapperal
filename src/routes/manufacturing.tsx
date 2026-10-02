@@ -8,11 +8,11 @@ export const Route = createFileRoute("/manufacturing")({
     links: [{ rel: "canonical", href: canonical("/manufacturing") }],
     meta: [
       { property: "og:url", content: canonical("/manufacturing") },
-      { title: "Manufacturing Process | Sportswear Production | Rare Signs Apparel" },
+      { title: "Sportswear Manufacturing Process | Rare Signs Apparel" },
       {
         name: "description",
         content:
-          "See how Rare Signs Apparel manufactures custom apparel: tech pack development, fabric selection, cutting, sublimation, embroidery, stitching, AQL quality control and export packing.",
+          "How Rare Signs Apparel makes custom sportswear: tech packs, fabric, cutting, sublimation, embroidery, stitching, AQL quality control and export packing.",
       },
       { property: "og:title", content: "Sportswear Manufacturing Process | Rare Signs Apparel" },
       {

@@ -15,7 +15,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Rare Signs Apparel is a Sialkot-based sportswear manufacturer and exporter supplying clubs, brands and distributors in 40+ countries with custom teamwear and fitness apparel.",
+          "Rare Signs Apparel is a Sialkot sportswear manufacturer and exporter supplying clubs, brands and distributors in 40+ countries with custom teamwear.",
       },
       { property: "og:title", content: "About Rare Signs Apparel | Manufacturer & Exporter" },
       {

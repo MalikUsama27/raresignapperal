@@ -7,10 +7,19 @@ import { PageHero } from "@/components/site/PageShell";
 import { InquiryForm } from "@/components/site/InquiryDialog";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
 import { Reveal } from "@/components/site/Reveal";
-import { canonical } from "@/lib/site";
+import { canonical, COMPANY_NAME, LOGO_URL, SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
+  loader: async ({ context }) => {
+    const s = await context.queryClient.ensureQueryData(siteSettingsQuery());
+    return {
+      phone: String(s["phone"] ?? ""),
+      email: String(s["email"] ?? ""),
+      address: String(s["address"] ?? ""),
+      hours: String(s["working_hours"] ?? ""),
+    };
+  },
+  head: ({ loaderData }) => ({
     links: [{ rel: "canonical", href: canonical("/contact") }],
     meta: [
       { property: "og:url", content: canonical("/contact") },
@@ -22,6 +31,24 @@ export const Route = createFileRoute("/contact")({
       },
       { property: "og:title", content: "Contact Rare Signs Apparel" },
       { property: "og:description", content: "Send your tech pack or reference and get a costed quote in 24 hours." },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: COMPANY_NAME,
+          url: SITE_URL,
+          image: LOGO_URL,
+          ...(loaderData?.phone ? { telephone: loaderData.phone } : {}),
+          ...(loaderData?.email ? { email: loaderData.email } : {}),
+          ...(loaderData?.address
+            ? { address: { "@type": "PostalAddress", streetAddress: loaderData.address, addressCountry: "PK" } }
+            : {}),
+          ...(loaderData?.hours ? { openingHours: loaderData.hours } : {}),
+        }),
+      },
     ],
   }),
   component: ContactPage,

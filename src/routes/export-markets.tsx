@@ -14,11 +14,11 @@ export const Route = createFileRoute("/export-markets")({
     links: [{ rel: "canonical", href: canonical("/export-markets") }],
     meta: [
       { property: "og:url", content: canonical("/export-markets") },
-      { title: "Export Markets | Global Sportswear Shipping | Rare Signs Apparel" },
+      { title: "Export Markets | Global Shipping | Rare Signs Apparel" },
       {
         name: "description",
         content:
-          "Rare Signs Apparel exports custom apparel to 40+ countries across North America, Europe, the Middle East and Oceania with full documentation and air or sea freight.",
+          "Rare Signs Apparel exports custom apparel to 40+ countries across North America, Europe, the Middle East and Oceania, with air or sea freight.",
       },
       { property: "og:title", content: "Global Export Markets | Rare Signs Apparel" },
       {

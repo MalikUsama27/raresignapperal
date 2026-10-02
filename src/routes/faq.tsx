@@ -7,9 +7,10 @@ import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/faq")({
   loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData(faqsQuery());
+    const faqs = await context.queryClient.ensureQueryData(faqsQuery());
+    return { faqs: faqs.map((f) => ({ q: f.question, a: f.answer })) };
   },
-  head: () => ({
+  head: ({ loaderData }) => ({
     links: [{ rel: "canonical", href: canonical("/faq") }],
     meta: [
       { property: "og:url", content: canonical("/faq") },
@@ -22,6 +23,22 @@ export const Route = createFileRoute("/faq")({
       { property: "og:title", content: "Frequently Asked Questions | Rare Signs Apparel" },
       { property: "og:description", content: "Samples, lead times, payment terms and shipping explained." },
     ],
+    scripts: loaderData?.faqs.length
+      ? [
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: loaderData.faqs.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            }),
+          },
+        ]
+      : [],
   }),
   component: FaqPage,
 });

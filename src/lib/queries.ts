@@ -15,10 +15,10 @@ import {
 const HOUR = 1000 * 60 * 60;
 
 export const navigationQuery = () =>
-  queryOptions({ queryKey: ["navigation"], queryFn: () => getNavigation(), staleTime: HOUR });
+  queryOptions({ queryKey: ["navigation"], queryFn: () => getNavigation(), staleTime: HOUR, retry: 3, retryDelay: (n) => 500 * 2 ** n });
 
 export const siteSettingsQuery = () =>
-  queryOptions({ queryKey: ["site-settings"], queryFn: () => getSiteSettings(), staleTime: HOUR });
+  queryOptions({ queryKey: ["site-settings"], queryFn: () => getSiteSettings(), staleTime: HOUR, retry: 3, retryDelay: (n) => 500 * 2 ** n });
 
 export const homeContentQuery = () =>
   queryOptions({ queryKey: ["home-content"], queryFn: () => getHomeContent(), staleTime: HOUR });

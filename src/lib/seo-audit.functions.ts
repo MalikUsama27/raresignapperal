@@ -33,7 +33,7 @@ export const analyzeSeoAudit = createServerFn({ method: "POST" })
       .from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
     if (!role) throw new Error("Forbidden");
 
-    const apiKey = process.env.LOVABLE_API_KEY;
+    const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) return { result: null, error: "AI is not configured." };
 
     const { createOpenAI } = await import("@ai-sdk/openai");

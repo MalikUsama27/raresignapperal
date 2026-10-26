@@ -28,6 +28,7 @@ import { Route as AdminInquiriesRouteImport } from './routes/admin/inquiries'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminMarketsRouteImport } from './routes/admin/markets'
 import { Route as AdminProductsRouteImport } from './routes/admin/products'
+import { Route as AdminSeoAuditRouteImport } from './routes/admin/seo-audit'
 import { Route as AdminSettingsRouteImport } from './routes/admin/settings'
 import { Route as AdminSubcategoriesRouteImport } from './routes/admin/subcategories'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
@@ -132,6 +133,11 @@ const AdminProductsRoute = AdminProductsRouteImport.update({
   path: '/products',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminSeoAuditRoute = AdminSeoAuditRouteImport.update({
+  id: '/seo-audit',
+  path: '/seo-audit',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -193,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/markets': typeof AdminMarketsRoute
   '/admin/products': typeof AdminProductsRoute
+  '/admin/seo-audit': typeof AdminSeoAuditRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/subcategories': typeof AdminSubcategoriesRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -221,6 +228,7 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin/markets': typeof AdminMarketsRoute
   '/admin/products': typeof AdminProductsRoute
+  '/admin/seo-audit': typeof AdminSeoAuditRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/subcategories': typeof AdminSubcategoriesRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -251,6 +259,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/markets': typeof AdminMarketsRoute
   '/admin/products': typeof AdminProductsRoute
+  '/admin/seo-audit': typeof AdminSeoAuditRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/subcategories': typeof AdminSubcategoriesRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -282,6 +291,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/markets'
     | '/admin/products'
+    | '/admin/seo-audit'
     | '/admin/settings'
     | '/admin/subcategories'
     | '/blog/$slug'
@@ -310,6 +320,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/markets'
     | '/admin/products'
+    | '/admin/seo-audit'
     | '/admin/settings'
     | '/admin/subcategories'
     | '/blog/$slug'
@@ -339,6 +350,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/markets'
     | '/admin/products'
+    | '/admin/seo-audit'
     | '/admin/settings'
     | '/admin/subcategories'
     | '/blog/$slug'
@@ -505,6 +517,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProductsRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/admin/seo-audit': {
+      id: '/admin/seo-audit'
+      path: '/seo-audit'
+      fullPath: '/admin/seo-audit'
+      preLoaderRoute: typeof AdminSeoAuditRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/settings'
@@ -572,6 +591,7 @@ interface AdminRouteRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMarketsRoute: typeof AdminMarketsRoute
   AdminProductsRoute: typeof AdminProductsRoute
+  AdminSeoAuditRoute: typeof AdminSeoAuditRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminSubcategoriesRoute: typeof AdminSubcategoriesRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -585,6 +605,7 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminMarketsRoute: AdminMarketsRoute,
   AdminProductsRoute: AdminProductsRoute,
+  AdminSeoAuditRoute: AdminSeoAuditRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminSubcategoriesRoute: AdminSubcategoriesRoute,
   AdminIndexRoute: AdminIndexRoute,

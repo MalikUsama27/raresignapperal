@@ -3,15 +3,12 @@ import {
   Outlet,
   Link,
   createRootRouteWithContext,
-  useRouter,
   HeadContent,
   Scripts,
-  type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
@@ -20,6 +17,7 @@ import { navigationQuery, siteSettingsQuery } from "@/lib/queries";
 import { LOGO_URL, OG_IMAGE_URL, SITE_URL } from "@/lib/site";
 import { PageTransition } from "@/components/site/PageTransition";
 import { MaintenanceAlert } from "@/components/site/MaintenanceAlert";
+import { ErrorScreen, RootErrorComponent } from "@/components/site/ErrorScreen";
 
 function NotFoundComponent() {
   return (
@@ -49,41 +47,6 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: ErrorComponentProps) {
-  console.error(error);
-  const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
-
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="font-display text-xl font-semibold tracking-tight">This page didn't load</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. Try refreshing, or reach us on WhatsApp and we'll help directly.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-          >
-            Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-border px-4 py-2 text-sm font-medium"
-          >
-            Go home
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   loader: async ({ context }) => {
@@ -151,7 +114,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
-  errorComponent: ErrorComponent,
+  errorComponent: RootErrorComponent,
 });
 
 function RootShell({ children }: { children: ReactNode }) {

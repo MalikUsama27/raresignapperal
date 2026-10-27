@@ -5,8 +5,8 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
-  type ReactNode,
 } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { Navbar } from "@/components/site/Navbar";

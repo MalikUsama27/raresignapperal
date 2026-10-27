@@ -9,9 +9,6 @@ type ErrorScreenProps = {
   retryLabel?: string;
   /** Custom retry behaviour; defaults to re-running the failed route loader. */
   onRetry?: () => void;
-  /** Shown for unexpected app errors, not for plain not-found screens. */
-  reportBoundary?: string;
-  error?: ErrorComponentProps["error"];
 };
 
 export function ErrorScreen({
@@ -19,8 +16,6 @@ export function ErrorScreen({
   message = "Something went wrong on our end. Try again in a moment, or reach us on WhatsApp and we'll help you directly.",
   retryLabel = "Try again",
   onRetry,
-  reportBoundary,
-  error,
 }: ErrorScreenProps) {
   const router = useRouter();
 
@@ -30,7 +25,6 @@ export function ErrorScreen({
       return;
     }
     router.invalidate();
-    router.history.back();
   };
 
   return (
@@ -76,16 +70,17 @@ export function ErrorScreen({
 /** Root route error boundary: reports the failure and shows the friendly screen. */
 export function RootErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
+  const router = useRouter();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
     <ErrorScreen
-      error={error}
-      reportBoundary="tanstack_root_error_component"
-      retryLabel="Try again"
-      onRetry={() => reset()}
+      onRetry={() => {
+        router.invalidate();
+        reset();
+      }}
     />
   );
 }

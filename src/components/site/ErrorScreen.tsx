@@ -1,4 +1,4 @@
-import { Link, useRouter, type ErrorComponentProps } from "@tanstack/react-router";
+import { useRouter, type ErrorComponentProps } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
@@ -47,12 +47,12 @@ export function ErrorScreen({
           >
             {retryLabel}
           </button>
-          <Link
-            to="/"
+          <a
+            href="/"
             className="inline-flex items-center justify-center rounded-md border border-border px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-surface"
           >
             Go home
-          </Link>
+          </a>
         </div>
         <a
           href={whatsappLink(GENERAL_WHATSAPP_MESSAGE)}

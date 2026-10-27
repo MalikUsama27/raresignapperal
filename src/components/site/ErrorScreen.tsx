@@ -28,7 +28,7 @@ export function ErrorScreen({
   };
 
   return (
-    <div className="flex min-h-[70vh] flex-1 items-center justify-center bg-background px-4 py-16">
+    <div className="flex min-h-screen flex-1 items-center justify-center bg-background px-4 py-16">
       <div className="w-full max-w-md text-center">
         <img
           src="/brand/rare-signs-mark.png"

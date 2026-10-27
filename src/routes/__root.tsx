@@ -3,6 +3,8 @@ import {
   Outlet,
   Link,
   createRootRouteWithContext,
+  HeadContent,
+  Scripts,
   type ReactNode,
 } from "@tanstack/react-router";
 

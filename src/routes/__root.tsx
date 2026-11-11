@@ -149,6 +149,7 @@ function RootComponent() {
         <Footer settings={settings} categories={categories} />
       </div>
       <MaintenanceAlert email={settings?.["email"]} />
+      <ChristmasOfferPopup />
       <WhatsAppFloat />
       <Toaster />
     </QueryClientProvider>

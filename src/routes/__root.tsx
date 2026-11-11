@@ -17,6 +17,7 @@ import { navigationQuery, siteSettingsQuery } from "@/lib/queries";
 import { LOGO_URL, OG_IMAGE_URL, SITE_URL } from "@/lib/site";
 import { PageTransition } from "@/components/site/PageTransition";
 import { MaintenanceAlert } from "@/components/site/MaintenanceAlert";
+import { ChristmasOfferPopup } from "@/components/site/ChristmasOfferPopup";
 import { ErrorScreen, RootErrorComponent } from "@/components/site/ErrorScreen";
 
 function NotFoundComponent() {

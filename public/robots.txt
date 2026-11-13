@@ -15,4 +15,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 
-Sitemap: https://raresignapperal.lovable.app/sitemap.xml
+Sitemap: https://raresignsapparel.com/sitemap.xml

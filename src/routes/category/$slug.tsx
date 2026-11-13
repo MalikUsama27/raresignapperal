@@ -10,6 +10,7 @@ import { Reveal, SectionHeading } from "@/components/site/Reveal";
 export const Route = createFileRoute("/category/$slug")({
   loader: async ({ context, params }) => {
     const data = await context.queryClient.ensureQueryData(categoryQuery(params.slug));
+    await context.queryClient.ensureQueryData(productsQuery({ category: params.slug, perPage: 12, sort: "featured" }));
     if (!data) throw notFound();
     return { slug: data.category.slug, name: data.category.name, seo: data.category.description, seoTitle: data.category.seo_title, image: data.category.image_url, count: data.productCount };
   },

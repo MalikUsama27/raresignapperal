@@ -19,6 +19,22 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/products/")({
   validateSearch: searchSchema,
+  loaderDeps: ({ search }) => ({ search: search.search, category: search.category, subcategory: search.subcategory, sort: search.sort, page: search.page }),
+  loader: async ({ context, deps }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(navigationQuery()),
+      context.queryClient.ensureQueryData(
+        productsQuery({
+          ...(deps.search ? { search: deps.search } : {}),
+          ...(deps.category ? { category: deps.category } : {}),
+          ...(deps.subcategory ? { subcategory: deps.subcategory } : {}),
+          sort: deps.sort,
+          page: deps.page,
+          perPage: PER_PAGE,
+        }),
+      ),
+    ]);
+  },
   head: () => ({
     links: [{ rel: "canonical", href: canonical("/products") }],
     meta: [

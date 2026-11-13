@@ -1,4 +1,4 @@
-export const SITE_URL = "https://raresignapperal.lovable.app";
+export const SITE_URL = "https://raresignsapparel.com";
 export const COMPANY_NAME = "Rare Signs Apparel";
 export const COMPANY_TAGLINE = "Premium Sportswear Manufacturing & Global Export";
 

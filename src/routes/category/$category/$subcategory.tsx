@@ -12,6 +12,9 @@ export const Route = createFileRoute("/category/$category/$subcategory")({
       subcategoryQuery(params.category, params.subcategory),
     );
     if (!data) throw notFound();
+    await context.queryClient.ensureQueryData(
+      productsQuery({ category: params.category, subcategory: params.subcategory, perPage: 24, sort: "featured" }),
+    );
     return {
       name: data.subcategory.name,
       category: data.category.name,

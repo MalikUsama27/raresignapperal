@@ -6,6 +6,8 @@ export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
     links: [{ rel: "canonical", href: canonical("/privacy-policy") }],
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: canonical("/privacy-policy") },
       { title: "Privacy Policy | Rare Signs Apparel" },
       {

@@ -13,6 +13,8 @@ export const Route = createFileRoute("/faq")({
   head: ({ loaderData }) => ({
     links: [{ rel: "canonical", href: canonical("/faq") }],
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: canonical("/faq") },
       { title: "FAQ | Lead Times, Customisation & Shipping | Rare Signs Apparel" },
       {

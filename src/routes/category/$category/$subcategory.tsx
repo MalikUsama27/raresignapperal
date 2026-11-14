@@ -2,7 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { productsQuery, subcategoryQuery } from "@/lib/queries";
-import { canonical } from "@/lib/site";
+import { seoTitle, seoDescription } from "@/lib/seo";
+import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
 import { ProductCard, ProductCardSkeleton } from "@/components/site/ProductCard";
 import { Breadcrumbs, CtaSection } from "@/components/site/PageShell";
 
@@ -18,13 +19,14 @@ export const Route = createFileRoute("/category/$category/$subcategory")({
     return {
       name: data.subcategory.name,
       category: data.category.name,
-      seo: data.subcategory.description,
-      seoTitle: data.subcategory.seo_title,
+      seo: seoDescription(data.subcategory.name, data.subcategory.seo_description ?? data.subcategory.description),
+      seoTitle: seoTitle(data.subcategory.name, data.subcategory.seo_title),
       path: `/category/${data.category.slug}/${data.subcategory.slug}`,
     };
   },
   head: ({ loaderData }) => ({
     links: loaderData ? [{ rel: "canonical", href: canonical(loaderData.path) }] : [],
+    scripts: loaderData ? [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "CollectionPage", name: loaderData.name, description: loaderData.seo, url: canonical(loaderData.path), isPartOf: { "@type": "WebSite", name: COMPANY_NAME, url: SITE_URL } }) }] : [],
     meta: [
       ...(loaderData ? [{ property: "og:url", content: canonical(loaderData.path) }] : []),
       { property: "og:type", content: "website" },

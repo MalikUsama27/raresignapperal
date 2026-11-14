@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { categoryQuery, productsQuery } from "@/lib/queries";
+import { absoluteImageUrl, seoDescription, seoTitle, breadcrumbSchema } from "@/lib/seo";
 import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
 import { ProductCard, ProductCardSkeleton } from "@/components/site/ProductCard";
 import { Breadcrumbs, CtaSection } from "@/components/site/PageShell";
@@ -12,16 +13,14 @@ export const Route = createFileRoute("/category/$slug")({
     const data = await context.queryClient.ensureQueryData(categoryQuery(params.slug));
     await context.queryClient.ensureQueryData(productsQuery({ category: params.slug, perPage: 12, sort: "featured" }));
     if (!data) throw notFound();
-    return { slug: data.category.slug, name: data.category.name, seo: data.category.description, seoTitle: data.category.seo_title, image: data.category.image_url, count: data.productCount };
+    return { slug: data.category.slug, name: data.category.name, seo: data.category.seo_description ?? data.category.description, seoTitle: data.category.seo_title, image: data.category.image_url, count: data.productCount };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const url = canonical(`/category/${loaderData.slug}`);
-    const title = loaderData.seoTitle ?? `${loaderData.name} Manufacturer & Exporter | Rare Signs Apparel`;
-    const description =
-      loaderData.seo ??
-      `${loaderData.name} manufactured to order by Rare Signs Apparel — ${loaderData.count} styles, low minimums, worldwide export.`;
-    const image = loaderData.image ? `${SITE_URL}${loaderData.image}` : null;
+    const title = seoTitle(loaderData.name, loaderData.seoTitle);
+    const description = seoDescription(loaderData.name, loaderData.seo);
+    const image = loaderData.image ? absoluteImageUrl(loaderData.image) : null;
 
     return {
       meta: [
@@ -41,6 +40,7 @@ export const Route = createFileRoute("/category/$slug")({
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
+        { type: "application/ld+json", children: JSON.stringify(breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Products", path: "/products" }, { name: loaderData.name, path: `/category/${loaderData.slug}` }])) },
         {
           type: "application/ld+json",
           children: JSON.stringify({

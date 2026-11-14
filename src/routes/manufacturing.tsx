@@ -7,6 +7,8 @@ export const Route = createFileRoute("/manufacturing")({
   head: () => ({
     links: [{ rel: "canonical", href: canonical("/manufacturing") }],
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: canonical("/manufacturing") },
       { title: "Sportswear Manufacturing Process | Rare Signs Apparel" },
       {

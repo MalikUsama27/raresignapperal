@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { productSlug, storedProductSlug, subcategorySlug, storedSubcategorySlug } from "./seo";
 import { listProductsInput, inquirySchema } from "./catalog.schemas";
 import {
   publicClient,
@@ -32,7 +33,7 @@ export const getNavigation = createServerFn({ method: "GET" }).handler(async ():
     image_url: category.image_url,
     subcategories: (subcategories ?? [])
       .filter((sub) => sub.category_id === category.id)
-      .map((sub) => ({ id: sub.id, slug: sub.slug, name: sub.name })),
+      .map((sub) => ({ id: sub.id, slug: subcategorySlug(sub.slug), name: sub.name })),
   }));
 });
 
@@ -60,7 +61,7 @@ export const getHomeContent = createServerFn({ method: "GET" }).handler(async ()
 
   return {
     categories: categories.data ?? [],
-    featured: featured.data ?? [],
+    featured: (featured.data ?? []).map((row) => ({ ...row, slug: productSlug(row.slug) })),
     countries: countries.data ?? [],
     testimonials: testimonials.data ?? [],
     faqs: faqs.data ?? [],
@@ -108,7 +109,7 @@ export const listProducts = createServerFn({ method: "GET" })
       const { data: sub } = await supabase
         .from("subcategories")
         .select("id")
-        .eq("slug", data.subcategory)
+        .eq("slug", storedSubcategorySlug(data.subcategory))
         .maybeSingle();
       if (!sub) return { items: [], total: 0, page: data.page, perPage: data.perPage };
       query = query.eq("subcategory_id", sub.id);
@@ -128,7 +129,7 @@ export const listProducts = createServerFn({ method: "GET" })
     const { data: items, count } = await query.range(from, from + data.perPage - 1);
 
     return {
-      items: items ?? [],
+      items: (items ?? []).map((row) => ({ ...row, slug: productSlug(row.slug) })),
       total: count ?? 0,
       page: data.page,
       perPage: data.perPage,
@@ -142,7 +143,7 @@ export const getProduct = createServerFn({ method: "GET" })
     const { data: product } = await supabase
       .from("products")
       .select("*, categories(name, slug), subcategories(name, slug)")
-      .eq("slug", data.slug)
+      .eq("slug", storedProductSlug(data.slug))
       .maybeSingle();
 
     if (!product) return null;
@@ -154,7 +155,7 @@ export const getProduct = createServerFn({ method: "GET" })
       .neq("id", product.id)
       .limit(4);
 
-    return { product, related: related ?? [] };
+    return { product: { ...product, slug: productSlug(product.slug) }, related: (related ?? []).map((row) => ({ ...row, slug: productSlug(row.slug) })) };
   });
 
 export const getCategory = createServerFn({ method: "GET" })
@@ -173,7 +174,7 @@ export const getCategory = createServerFn({ method: "GET" })
       supabase.from("products").select("id", { count: "exact", head: true }).eq("category_id", category.id),
     ]);
 
-    return { category, subcategories: subcategories ?? [], productCount: count ?? 0 };
+    return { category, subcategories: (subcategories ?? []).map((row) => ({ ...row, slug: subcategorySlug(row.slug) })), productCount: count ?? 0 };
   });
 
 export const getSubcategory = createServerFn({ method: "GET" })
@@ -193,11 +194,11 @@ export const getSubcategory = createServerFn({ method: "GET" })
       .from("subcategories")
       .select(SUBCATEGORY_FIELDS)
       .eq("category_id", category.id)
-      .eq("slug", data.subcategory)
+      .eq("slug", storedSubcategorySlug(data.subcategory))
       .maybeSingle();
     if (!subcategory) return null;
 
-    return { category, subcategory };
+    return { category, subcategory: { ...subcategory, slug: subcategorySlug(subcategory.slug) } };
   });
 
 

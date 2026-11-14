@@ -65,7 +65,7 @@ export function FadeInImage({
 }
 
 function formatted(value: number, decimals: number) {
-  return value.toLocaleString(undefined, {
+  return value.toLocaleString("en-US", {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
@@ -93,7 +93,8 @@ export function AnimatedCounter({
   const reduce = useReducedMotion();
   const ref = useRef<HTMLSpanElement>(null);
   const [inView, setInView] = useState(false);
-  const [display, setDisplay] = useState(() => (reduce ? value : 0));
+  // Render the actual value in initial HTML; animate only after hydration.
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
     const node = ref.current;
@@ -121,6 +122,7 @@ export function AnimatedCounter({
       return;
     }
     if (!inView) return;
+    setDisplay(0);
     let frame = 0;
     const start = performance.now();
     const tick = (now: number) => {

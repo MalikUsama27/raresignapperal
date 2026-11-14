@@ -7,6 +7,7 @@ import { Markdown } from "@/components/site/Markdown";
 import { Reveal } from "@/components/site/Reveal";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
 import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
+import { absoluteImageUrl, breadcrumbSchema, seoTitle, seoDescription } from "@/lib/seo";
 import { formatDate } from "./index";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -16,8 +17,8 @@ export const Route = createFileRoute("/blog/$slug")({
     const { post } = data;
     return {
       slug: post.slug,
-      title: post.seo_title ?? post.title,
-      description: post.seo_description ?? post.excerpt ?? "",
+      title: seoTitle(post.title, post.seo_title),
+      description: seoDescription(post.title, post.seo_description ?? post.excerpt),
       keywords: post.keywords ?? "",
       image: post.cover_image_url ?? null,
       publishedAt: post.published_at,
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const url = canonical(`/blog/${loaderData.slug}`);
-    const image = loaderData.image ? `${SITE_URL}${loaderData.image}` : null;
+    const image = loaderData.image ? absoluteImageUrl(loaderData.image) : null;
 
     return {
       meta: [
@@ -49,6 +50,7 @@ export const Route = createFileRoute("/blog/$slug")({
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
+        { type: "application/ld+json", children: JSON.stringify(breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Insights", path: "/blog" }, { name: loaderData.headline, path: `/blog/${loaderData.slug}` }])) },
         {
           type: "application/ld+json",
           children: JSON.stringify({

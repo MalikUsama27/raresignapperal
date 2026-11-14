@@ -13,6 +13,8 @@ export const Route = createFileRoute("/export-markets")({
   head: () => ({
     links: [{ rel: "canonical", href: canonical("/export-markets") }],
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: canonical("/export-markets") },
       { title: "Export Markets | Global Shipping | Rare Signs Apparel" },
       {

@@ -13,7 +13,7 @@ const searchSchema = z.object({
   search: z.string().trim().max(120).optional(),
 });
 
-const TITLE = "Sportswear Manufacturing Insights & Export Guides | Rare Signs Apparel";
+const TITLE = "Sportswear Manufacturing Blog | Rare Signs Apparel";
 const DESCRIPTION =
   "Fabric guides, decoration methods, sourcing tips and export compliance advice from a Sialkot-based sportswear manufacturer and exporter.";
 

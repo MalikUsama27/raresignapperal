@@ -1,5 +1,10 @@
 # Deployment verification
 
+## Organic growth opportunities
+- [ ] Deliver a prioritized report using current Search Console evidence and six-country demand research.
+- [ ] Apply only safe metadata and existing-page internal links; preserve published article text and records.
+- [ ] Verify changed metadata and link destinations, and document 30/60/90-day checkpoints.
+
 ## Technical SEO audit
 - [x] Correct server-rendered statistics, About history and shared metadata/image URL helpers without redesigning.
 - [x] Validate all public metadata, sitemap pagination/error handling, SSR, images and legacy URL handling: 228 pages return 200, 171 distinct sharing images return 200, nine regression tests pass.

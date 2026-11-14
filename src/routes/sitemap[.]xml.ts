@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { publicClient } from "@/lib/catalog.server";
 import { SITE_URL } from "@/lib/site";
+import { publicPath } from "@/lib/seo";
 
 type Entry = { path: string; changefreq?: string; priority?: string; lastmod?: string };
 
@@ -24,20 +25,29 @@ export const Route = createFileRoute("/sitemap.xml")({
     handlers: {
       GET: async () => {
         const supabase = publicClient();
+        async function pages<T>(read: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: unknown }>): Promise<T[]> {
+          const rows: T[] = [];
+          for (let from = 0; ; from += 500) {
+            const result = await read(from, from + 499);
+            if (result.error) throw new Error("Sitemap source unavailable", { cause: result.error });
+            const batch = result.data ?? [];
+            rows.push(...batch);
+            if (batch.length < 500) return rows;
+          }
+        }
         const [categories, subcategories, products, posts] = await Promise.all([
-          supabase.from("categories").select("slug").eq("is_active", true).order("sort_order"),
-          supabase.from("subcategories").select("slug, category_id").eq("is_active", true).order("sort_order"),
-          supabase.from("products").select("slug, updated_at").eq("is_published", true).order("sort_order"),
-          supabase
+          pages((from, to) => supabase.from("categories").select("id, slug").eq("is_active", true).order("id").range(from, to)),
+          pages((from, to) => supabase.from("subcategories").select("slug, category_id").eq("is_active", true).order("id").range(from, to)),
+          pages((from, to) => supabase.from("products").select("slug, updated_at").eq("is_published", true).order("id").range(from, to)),
+          pages((from, to) => supabase
             .from("blog_posts")
             .select("slug, updated_at")
             .eq("is_published", true)
-            .order("published_at", { ascending: false }),
+            .order("id").range(from, to)),
         ]);
 
-        const categoryRows = categories.data ?? [];
-        const categoryIdBySlug = await supabase.from("categories").select("id, slug").eq("is_active", true);
-        const slugById = new Map((categoryIdBySlug.data ?? []).map((row) => [row.id, row.slug]));
+        const categoryRows = categories;
+        const slugById = new Map(categories.map((row) => [row.id, row.slug]));
 
         const entries: Entry[] = [
           ...STATIC_ENTRIES,
@@ -46,33 +56,35 @@ export const Route = createFileRoute("/sitemap.xml")({
             changefreq: "weekly",
             priority: "0.8",
           })),
-          ...(subcategories.data ?? []).flatMap((row) => {
+          ...subcategories.flatMap((row) => {
             const parent = slugById.get(row.category_id);
             return parent
               ? [{ path: `/category/${parent}/${row.slug}`, changefreq: "weekly", priority: "0.7" }]
               : [];
           }),
-          ...(products.data ?? []).map((row) => ({
+          ...products.map((row) => ({
             path: `/products/${row.slug}`,
             changefreq: "monthly",
             priority: "0.7",
             lastmod: row.updated_at ?? undefined,
           })),
-          ...(posts.data ?? []).map((row) => ({
+          ...posts.map((row) => ({
             path: `/blog/${row.slug}`,
             changefreq: "monthly",
             priority: "0.6",
             lastmod: row.updated_at ?? undefined,
           })),
         ];
+        const uniqueEntries = [...new Map(entries.map((entry) => [publicPath(entry.path), { ...entry, path: publicPath(entry.path) }])).values()];
+        const escapeXml = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 
         const xml = [
           '<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-          ...entries.map((entry) =>
+          ...uniqueEntries.map((entry) =>
             [
               "  <url>",
-              `    <loc>${SITE_URL}${entry.path === "/" ? "/" : entry.path}</loc>`,
+              `    <loc>${escapeXml(`${SITE_URL}${entry.path === "/" ? "/" : entry.path}`)}</loc>`,
               entry.lastmod ? `    <lastmod>${new Date(entry.lastmod).toISOString()}</lastmod>` : null,
               entry.changefreq ? `    <changefreq>${entry.changefreq}</changefreq>` : null,
               entry.priority ? `    <priority>${entry.priority}</priority>` : null,

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { COMPANY_FACTS } from "./company";
-import { absoluteImageUrl, permanentRedirect, publicPath, seoDescription, storedProductSlug, storedSubcategorySlug } from "./seo";
+import { absoluteImageUrl, permanentRedirect, publicPath, storedProductSlug, storedSubcategorySlug } from "./seo";
 
 describe("confirmed company facts", () => {
   test("40+ export markets", () => expect(COMPANY_FACTS.markets).toBe(40));

@@ -29,7 +29,8 @@ function shorten(value: string, limit: number) {
 
 export function seoTitle(name: string, preferred?: string | null) {
   const title = cleanMetadata(preferred || `${name} | ${COMPANY_NAME}`);
-  return title.length <= 60 ? title : shorten(`${name} | ${COMPANY_NAME}`, 60);
+  return title.length <= 60 && title.toLowerCase().startsWith(name.toLowerCase())
+    ? title : shorten(`${name} | ${COMPANY_NAME}`, 60);
 }
 
 export function seoDescription(name: string, preferred?: string | null) {

@@ -10,6 +10,7 @@ import { InquiryDialog } from "@/components/site/InquiryDialog";
 import { CtaSection } from "@/components/site/PageShell";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { canonical, LOGO_URL, OG_IMAGE_URL, SITE_URL } from "@/lib/site";
+import { COMPANY_FACTS } from "@/lib/company";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
@@ -19,11 +20,13 @@ export const Route = createFileRoute("/")({
     links: [{ rel: "canonical", href: canonical("/") }],
     meta: [
       { property: "og:url", content: canonical("/") },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Rare Signs Apparel | Custom Sportswear Manufacturer & Exporter" },
       {
         name: "description",
         content:
-          "Custom sportswear, teamwear, fitness and private-label apparel manufactured in Sialkot and exported to 40+ countries. Fast shipping, full customisation, 20-35 day production.",
+          "Custom sportswear manufacturer in Sialkot, Pakistan. Teamwear, fitness and private-label apparel exported to 40+ countries. Request a quote.",
       },
       { property: "og:title", content: "Rare Signs Apparel | Custom Sportswear Manufacturer & Exporter" },
       {
@@ -91,16 +94,15 @@ function Home() {
   const { data } = useSuspenseQuery(homeContentQuery());
   const { data: settings } = useSuspenseQuery(siteSettingsQuery());
 
-  const teamSize = String(settings["team_size"] ?? "50+");
   const stats = [
-    { count: Number(settings["countries_served"] ?? 40), suffix: "+", label: "Export markets" },
-    { count: Number(settings["units_per_month"] ?? 0), suffix: "", label: "Units per month" },
+    { count: COMPANY_FACTS.markets, suffix: "+", label: "Export markets" },
+    { count: COMPANY_FACTS.unitsPerMonth, suffix: "", label: "Units per month" },
     {
-      count: Number(teamSize.replace(/[^0-9]/g, "")) || 50,
-      suffix: teamSize.includes("+") ? "+" : "",
+      count: COMPANY_FACTS.team,
+      suffix: "+",
       label: "In-house team",
     },
-    { count: 10, suffix: " Yrs", label: "Experience" },
+    { count: COMPANY_FACTS.experienceYears, suffix: " Yrs", label: "Experience" },
   ];
 
   return (
@@ -112,13 +114,14 @@ function Home() {
           alt="Athletes wearing premium custom sportswear"
           width={1920}
           height={1080}
+          fetchPriority="high"
           className="pointer-events-none absolute inset-0 size-full scale-[1.04] animate-hero-zoom object-cover opacity-35"
         />
         <div className="pointer-events-none absolute inset-0 bg-fade-bottom" />
         <div className="container-page relative grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <Entrance>
-              <p className="eyebrow">Manufacturer &amp; exporter · Since {settings["founded_year"]}</p>
+              <p className="eyebrow">Manufacturer &amp; exporter · Since {COMPANY_FACTS.establishedYear}</p>
             </Entrance>
             <Entrance delay={0.08}>
               <h1 className="display-xl mt-5 text-balance">

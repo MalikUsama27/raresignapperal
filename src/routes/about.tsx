@@ -5,12 +5,15 @@ import { siteSettingsQuery } from "@/lib/queries";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
 import { canonical } from "@/lib/site";
+import { COMPANY_FACTS } from "@/lib/company";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     links: [{ rel: "canonical", href: canonical("/about") }],
     meta: [
       { property: "og:url", content: canonical("/about") },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "About Rare Signs Apparel | Sportswear Manufacturer in Sialkot" },
       {
         name: "description",
@@ -28,9 +31,7 @@ export const Route = createFileRoute("/about")({
 });
 
 const MILESTONES = [
-  { year: "2009", title: "Founded in Sialkot", body: "Started as a 14-machine stitching unit producing club kits for regional leagues." },
-  { year: "2013", title: "First export programme", body: "Began direct shipments to distributors in the United Kingdom and Germany." },
-  { year: "2016", title: "In-house sublimation", body: "Installed wide-format sublimation and heat-press lines to control print quality." },
+  { year: String(COMPANY_FACTS.establishedYear), title: "Founded in Sialkot", body: "Rare Signs Apparel was established in Sialkot, Pakistan." },
   { year: "2019", title: "Compliance audits", body: "Passed social and technical audits required by European retail buyers." },
   { year: "2022", title: "Capacity expansion", body: "Added dedicated fitness and outerwear lines, tripling monthly output." },
   { year: "Today", title: "40+ markets", body: "Supplying clubs, federations, gym brands and corporate buyers on five continents." },
@@ -50,7 +51,7 @@ function AboutPage() {
       <PageHero
         eyebrow="About us"
         title="A manufacturing partner built around repeat orders"
-        description={`Founded in ${settings["founded_year"]}, Rare Signs Apparel designs, manufactures and exports performance apparel from Sialkot, Pakistan — the same industrial cluster that supplies much of the world's professional sporting goods.`}
+        description={`Founded in ${COMPANY_FACTS.establishedYear}, Rare Signs Apparel designs, manufactures and exports performance apparel from Sialkot, Pakistan — the same industrial cluster that supplies much of the world's professional sporting goods.`}
       />
 
       <section className="border-t border-border py-20 md:py-28">
@@ -85,10 +86,10 @@ function AboutPage() {
             />
             <dl className="mt-6 grid grid-cols-2 gap-4">
               {[
-                { label: "Units per month", value: Number(settings["units_per_month"] ?? 0).toLocaleString() },
-                { label: "In-house team", value: String(settings["team_size"] ?? "") },
-                { label: "Export markets", value: `${settings["countries_served"] ?? ""}+` },
-                { label: "Sample lead time", value: "7-10 days" },
+                { label: "Units per month", value: COMPANY_FACTS.unitsPerMonth.toLocaleString("en-US") },
+                { label: "In-house team", value: `${COMPANY_FACTS.team}+` },
+                { label: "Export markets", value: `${COMPANY_FACTS.markets}+` },
+                { label: "Experience", value: `${COMPANY_FACTS.experienceYears} Yrs` },
               ].map((item) => (
                 <div key={item.label} className="rounded-xl border border-border bg-surface p-5">
                   <dt className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{item.label}</dt>

@@ -1,5 +1,13 @@
 # Deployment verification
 
+## Technical SEO audit
+- [ ] Correct server-rendered statistics, About history and shared metadata/image URL helpers without redesigning.
+- [ ] Validate all public metadata, sitemap pagination/error handling, SSR, images and legacy URL handling.
+- [ ] Read current Search Console data and representative index reports; submit sitemap after verifying its live contents.
+- [ ] Provide before/after findings and realistic 30/60/90-day growth priorities.
+- [ ] Verify these new fixes on the official domain — requires deployment through the existing external pipeline; Lovable cannot deploy to Cloudflare.
+- [ ] Migrate media only after approved destination access and actual files are verified — destination backend is not connected here; preserve current storage.
+
 - [x] Inspect local repository and build configuration. No GitHub remote is visible locally; Git sync status requires Project Settings → Git.
 - [x] Confirm the external production build convention: `bun run build`, `.output`, server `.output/server/index.mjs`, assets `.output/public`, generated config `.output/server/wrangler.json`.
 - [x] Test the current official domain: homepage statistics, canonical URLs, 228-URL sitemap, robots sitemap, representative products/categories/subcategories/blogs/images, and authenticated admin dashboard.

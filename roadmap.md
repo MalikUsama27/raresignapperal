@@ -1,9 +1,10 @@
 # Deployment verification
 
 ## Technical SEO audit
-- [ ] Correct server-rendered statistics, About history and shared metadata/image URL helpers without redesigning.
-- [ ] Validate all public metadata, sitemap pagination/error handling, SSR, images and legacy URL handling.
-- [ ] Read current Search Console data and representative index reports; submit sitemap after verifying its live contents.
+- [x] Correct server-rendered statistics, About history and shared metadata/image URL helpers without redesigning.
+- [x] Validate all public metadata, sitemap pagination/error handling, SSR, images and legacy URL handling: 228 pages return 200, 171 distinct sharing images return 200, nine regression tests pass.
+- [x] Read current Search Console data and representative index reports.
+- [ ] Submit corrected sitemap and verify Google receipt after deployment — live sitemap still lists the two uncorrected legacy slugs.
 - [ ] Provide before/after findings and realistic 30/60/90-day growth priorities.
 - [ ] Verify these new fixes on the official domain — requires deployment through the existing external pipeline; Lovable cannot deploy to Cloudflare.
 - [ ] Migrate media only after approved destination access and actual files are verified — destination backend is not connected here; preserve current storage.

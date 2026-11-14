@@ -3,7 +3,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Check, MessageCircle, Package, Palette, Truck } from "lucide-react";
 import { productQuery } from "@/lib/queries";
-import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
+import { canonical, COMPANY_NAME } from "@/lib/site";
+import { absoluteImageUrl, seoDescription, seoTitle, breadcrumbSchema } from "@/lib/seo";
 import { productWhatsappMessage, whatsappLink } from "@/lib/whatsapp";
 import { InquiryDialog } from "@/components/site/InquiryDialog";
 import { ProductCard } from "@/components/site/ProductCard";
@@ -30,16 +31,16 @@ export const Route = createFileRoute("/products/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const url = canonical(`/products/${loaderData.slug}`);
-    const image = loaderData.image ? `${SITE_URL}${loaderData.image}` : null;
-    const description =
-      loaderData.seo ?? `${loaderData.name} manufactured to order by Rare Signs Apparel and exported worldwide.`;
+    const image = loaderData.image ? absoluteImageUrl(loaderData.image) : null;
+    const description = seoDescription(loaderData.name, loaderData.seo);
+    const title = seoTitle(loaderData.name, loaderData.seoTitle);
 
     return {
       meta: [
-        { title: loaderData.seoTitle },
+        { title },
         { name: "description", content: description },
         ...(loaderData.keywords ? [{ name: "keywords", content: loaderData.keywords }] : []),
-        { property: "og:title", content: loaderData.seoTitle },
+        { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "product" },
         { property: "og:url", content: url },
@@ -53,6 +54,7 @@ export const Route = createFileRoute("/products/$slug")({
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
+        { type: "application/ld+json", children: JSON.stringify(breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Products", path: "/products" }, { name: loaderData.name, path: `/products/${loaderData.slug}` }])) },
         {
           type: "application/ld+json",
           children: JSON.stringify({
@@ -67,13 +69,7 @@ export const Route = createFileRoute("/products/$slug")({
             brand: { "@type": "Brand", name: COMPANY_NAME },
             manufacturer: { "@type": "Organization", name: COMPANY_NAME },
             url,
-            offers: {
-              "@type": "Offer",
-              availability: "https://schema.org/InStock",
-              priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", valueAddedTaxIncluded: false },
-              url,
-              seller: { "@type": "Organization", name: COMPANY_NAME },
-            },
+
           }),
         },
       ],

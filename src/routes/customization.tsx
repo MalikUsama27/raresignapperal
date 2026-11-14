@@ -7,6 +7,8 @@ export const Route = createFileRoute("/customization")({
   head: () => ({
     links: [{ rel: "canonical", href: canonical("/customization") }],
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: canonical("/customization") },
       { title: "Custom Sportswear & Private Label Services | Rare Signs Apparel" },
       {

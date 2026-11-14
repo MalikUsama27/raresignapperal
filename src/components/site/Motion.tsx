@@ -65,7 +65,7 @@ export function FadeInImage({
 }
 
 function formatted(value: number, decimals: number) {
-  return value.toLocaleString(undefined, {
+  return value.toLocaleString("en-US", {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });

@@ -1,7 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { Award, Building2, Eye, Target, Users } from "lucide-react";
-import { siteSettingsQuery } from "@/lib/queries";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
 import { canonical } from "@/lib/site";
@@ -44,7 +42,6 @@ const VALUES = [
 ];
 
 function AboutPage() {
-  const { data: settings } = useSuspenseQuery(siteSettingsQuery());
 
   return (
     <>

@@ -22,6 +22,8 @@ export const Route = createFileRoute("/contact")({
   head: ({ loaderData }) => ({
     links: [{ rel: "canonical", href: canonical("/contact") }],
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: canonical("/contact") },
       { title: "Contact & Request a Quote | Rare Signs Apparel" },
       {

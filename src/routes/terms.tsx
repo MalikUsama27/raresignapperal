@@ -6,6 +6,8 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     links: [{ rel: "canonical", href: canonical("/terms") }],
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: canonical("/terms") },
       { title: "Terms & Conditions | Rare Signs Apparel" },
       {

@@ -13,7 +13,7 @@ export function PageHero({
 }: {
   eyebrow: string;
   title: string;
-  description?: string;
+  description?: ReactNode;
   children?: ReactNode;
 }) {
   return (

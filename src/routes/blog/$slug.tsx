@@ -133,7 +133,7 @@ function BlogPostPage() {
           <div className="mt-12 glass-panel rounded-2xl p-7">
             <h2 className="font-display text-lg font-bold tracking-tight">Planning a production run?</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Share your styles, quantities and target market. Our export team replies with fabric options and a
+              Share your <Link to="/products" className="underline underline-offset-4 hover:text-foreground">styles</Link>, quantities and <Link to="/export-markets" className="underline underline-offset-4 hover:text-foreground">target market</Link>. Our export team replies with fabric options and a
               delivered price.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">

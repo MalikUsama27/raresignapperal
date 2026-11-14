@@ -1,5 +1,11 @@
 # Deployment verification
 
+## Organic growth opportunities
+- [x] Deliver a prioritized report using current Search Console evidence and six-country demand research.
+- [x] Apply only safe metadata and existing-page internal links; preserve published article text and records.
+- [x] Verify changed metadata and link destinations, and document 30/60/90-day checkpoints.
+- [ ] Publish today's metadata/link changes to the official domain — requires the existing external deployment pipeline.
+
 ## Technical SEO audit
 - [x] Correct server-rendered statistics, About history and shared metadata/image URL helpers without redesigning.
 - [x] Validate all public metadata, sitemap pagination/error handling, SSR, images and legacy URL handling: 228 pages return 200, 171 distinct sharing images return 200, nine regression tests pass.
@@ -16,4 +22,4 @@
 - [x] Compare the official domain and latest local preview visually and functionally; checked content matches, but no deployment/build identifier is publicly available for a byte-for-byte release comparison.
 - [ ] Identify the Cloudflare project and repository connection — blocked: Cloudflare authorization was declined and Git sync status is only available in Project Settings → Git.
 - [ ] Deploy through the existing authorized external hosting path — blocked by the unavailable Cloudflare/GitHub connection. No deployment was performed.
-- [ ] Configure and verify the permanent www → non-www 301 redirect — blocked by Cloudflare authorization. Current www homepage returns 200. Do not touch MX records.
+- [x] Verify the permanent www → non-www 301 redirect: live /blog?source=check preserves path and query on 14 November 2026; no DNS changes made.

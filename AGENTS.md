@@ -13,3 +13,4 @@
 - Public legacy slug aliases resolve to existing database records and redirect at the server entry; no record migration is needed.
 - Homepage and About statistics share one facts module and counters render their final value during SSR so crawlers never receive zeros.
 - Sitemap reads use public credentials, pagination and explicit failures to prevent silently incomplete XML.
+- Shared page introductions accept ReactNode descriptions so inline internal links preserve existing paragraph structure and styling.

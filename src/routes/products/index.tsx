@@ -45,12 +45,12 @@ export const Route = createFileRoute("/products/")({
       {
         name: "description",
         content:
-          "Browse 150+ custom sportswear, teamwear, fitness and casual styles. Filter by category, search the catalogue and request a quote with your own branding.",
+          "Browse custom team uniforms, fitness wear and casual apparel for clubs, brands and wholesalers. Choose a style and request a branded sportswear quote.",
       },
-      { property: "og:title", content: "Custom Sportswear & Apparel Catalogue | Rare Signs Apparel" },
+      { property: "og:title", content: "Custom Sportswear Catalogue | Rare Signs Apparel" },
       {
         property: "og:description",
-        content: "Filter our full export catalogue by category and subcategory, then request a quote.",
+        content: "Browse custom team uniforms, fitness wear and casual apparel for clubs, brands and wholesalers. Choose a style and request a branded sportswear quote.",
       },
     ],
   }),

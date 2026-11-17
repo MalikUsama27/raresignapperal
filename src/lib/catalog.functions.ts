@@ -132,6 +132,10 @@ export const listProducts = createServerFn({ method: "GET" })
         .map((row) => ({ row, score: searchScore(row, stem) }))
         .sort((a, b) => b.score - a.score || a.row.name.localeCompare(b.row.name))
         .map(({ row }) => ({ ...row, slug: productSlug(row.slug) }));
+      if (data.page === 1) {
+        const { error } = await supabase.from("search_logs").insert({ term: data.search.trim().toLowerCase().slice(0, 120), result_count: ranked.length });
+        if (error) console.error("search log failed", error.message);
+      }
       return { items: ranked.slice(from, from + data.perPage), total: count ?? ranked.length, page: data.page, perPage: data.perPage };
     }
 

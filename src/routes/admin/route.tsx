@@ -12,6 +12,7 @@ import {
   Package,
   Settings,
   Sparkles,
+  Search,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard; exact?: bo
   { to: "/admin/content", label: "Site content", icon: MessageSquareQuote },
   { to: "/admin/markets", label: "Export markets", icon: Globe2 },
   { to: "/admin/inquiries", label: "Inquiries", icon: Inbox },
+  { to: "/admin/searches", label: "Site searches", icon: Search },
   { to: "/admin/seo-audit", label: "SEO audit", icon: Sparkles },
   { to: "/admin/settings", label: "Settings", icon: Settings },
 ];

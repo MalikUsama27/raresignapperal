@@ -15,6 +15,13 @@
       "when": 1794614513463,
       "tag": "0001_tighten_public_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794877081835,
+      "tag": "0002_create_search_logs",
+      "breakpoints": true
     }
   ]
 }

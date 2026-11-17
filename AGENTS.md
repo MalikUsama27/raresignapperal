@@ -14,3 +14,4 @@
 - Homepage and About statistics share one facts module and counters render their final value during SSR so crawlers never receive zeros.
 - Sitemap reads use public credentials, pagination and explicit failures to prevent silently incomplete XML.
 - Shared page introductions accept ReactNode descriptions so inline internal links preserve existing paragraph structure and styling.
+- Site search terms are logged server-side to public.search_logs (insert-only for visitors, admin-read) from listProducts page 1; why: admin needs popular and zero-result terms, which free-text analytics events cannot carry.

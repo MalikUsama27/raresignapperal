@@ -426,6 +426,27 @@ export type Database = {
           },
         ]
       }
+      search_logs: {
+        Row: {
+          created_at: string
+          id: string
+          result_count: number
+          term: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          result_count?: number
+          term: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          result_count?: number
+          term?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           is_public: boolean

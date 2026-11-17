@@ -25,7 +25,7 @@ export const Route = createFileRoute("/products/$slug")({
       image: p.image_url,
       seo: p.seo_description ?? p.short_description,
       seoTitle: p.seo_title ?? `${p.name} Manufacturer & Exporter | Rare Signs Apparel`,
-      keywords: p.keywords,
+      keywords: p.keywords || [p.name, `custom ${p.name}`, `${p.name} manufacturer`, `wholesale ${p.name}`, `${p.categories?.name ?? "sportswear"} exporter`, "Sialkot sportswear manufacturer"].map((k) => k.toLowerCase()).join(", "),
     };
   },
   head: ({ loaderData }) => {

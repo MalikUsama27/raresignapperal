@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { productSlug, storedProductSlug, subcategorySlug, storedSubcategorySlug } from "./seo";
+import { searchScore, searchStem, productSlug, storedProductSlug, subcategorySlug, storedSubcategorySlug } from "./seo";
 import { listProductsInput, inquirySchema } from "./catalog.schemas";
 import {
   publicClient,
@@ -93,7 +93,7 @@ export const listProducts = createServerFn({ method: "GET" })
 
     let query = supabase
       .from("products")
-      .select("id, slug, name, sku, short_description, image_url, gallery, is_featured, category_id, subcategory_id, categories(name, slug), subcategories(name, slug)", { count: "exact" });
+      .select("id, slug, name, sku, short_description, keywords, image_url, gallery, is_featured, category_id, subcategory_id, categories(name, slug), subcategories(name, slug)", { count: "exact" });
 
     if (data.category) {
       const { data: category } = await supabase
@@ -118,8 +118,21 @@ export const listProducts = createServerFn({ method: "GET" })
     if (data.featured) query = query.eq("is_featured", true);
 
     if (data.search) {
-      const term = `%${data.search.replace(/[%_,]/g, " ")}%`;
-      query = query.or(`name.ilike.${term},short_description.ilike.${term},keywords.ilike.${term}`);
+      const stem = searchStem(data.search.replace(/[%_,().]/g, " "));
+      const term = `%${stem}%`;
+      const [{ data: cats }, { data: subs }] = await Promise.all([
+        supabase.from("categories").select("id").ilike("name", term),
+        supabase.from("subcategories").select("id").ilike("name", term),
+      ]);
+      const filters = [`name.ilike.${term}`, `short_description.ilike.${term}`, `keywords.ilike.${term}`];
+      if (cats?.length) filters.push(`category_id.in.(${cats.map((c) => c.id).join(",")})`);
+      if (subs?.length) filters.push(`subcategory_id.in.(${subs.map((c) => c.id).join(",")})`);
+      const { data: matches, count } = await query.or(filters.join(",")).limit(300);
+      const ranked = (matches ?? [])
+        .map((row) => ({ row, score: searchScore(row, stem) }))
+        .sort((a, b) => b.score - a.score || a.row.name.localeCompare(b.row.name))
+        .map(({ row }) => ({ ...row, slug: productSlug(row.slug) }));
+      return { items: ranked.slice(from, from + data.perPage), total: count ?? ranked.length, page: data.page, perPage: data.perPage };
     }
 
     if (data.sort === "name") query = query.order("name");

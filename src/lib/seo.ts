@@ -59,12 +59,43 @@ export function storedProductSlug(slug: string) { return slug === "sports-wrestl
 export function subcategorySlug(slug: string) { return slug === "puffer-jackts" ? "puffer-jackets" : slug; }
 export function storedSubcategorySlug(slug: string) { return slug === "puffer-jackets" ? "puffer-jackts" : slug; }
 
-/** Redirect only the official www host and explicitly enumerated legacy paths. */
+/** Hosts that must consolidate onto the official domain (www and the old published Lovable address). */
+const OFFICIAL_ALIASES = new Set(["www.raresignsapparel.com", "raresignapperal.lovable.app"]);
+
+/** Redirect only official alias hosts and explicitly enumerated legacy paths. */
 export function permanentRedirect(requestUrl: string) {
   const url = new URL(requestUrl);
   const path = publicPath(url.pathname);
-  if (url.hostname !== "www.raresignsapparel.com" && path === url.pathname) return null;
-  const destination = new URL(path, url.hostname === "www.raresignsapparel.com" ? SITE_URL : url.origin);
+  const official = OFFICIAL_ALIASES.has(url.hostname);
+  if (!official && path === url.pathname) return null;
+  const destination = new URL(path, official ? SITE_URL : url.origin);
   destination.search = url.search;
   return destination.href;
+}
+/** Normalise a search term to its singular stem ("jerseys" -> "jersey", "hoodies" -> "hoodie"). */
+export function searchStem(term: string) {
+  const t = term.trim().toLowerCase();
+  if (t.length > 3 && t.endsWith("s") && !t.endsWith("ss")) return t.slice(0, -1);
+  return t;
+}
+
+type Rankable = { name: string; short_description?: string | null; keywords?: string | null; is_featured?: boolean | null;
+  categories?: { name: string } | null; subcategories?: { name: string } | null };
+
+/** Score how well a product matches a search: name matches first, then range/category, then text. */
+export function searchScore(item: Rankable, term: string) {
+  const stem = searchStem(term);
+  if (!stem) return 0;
+  const name = item.name.toLowerCase();
+  let score = 0;
+  if (name === stem || name === term.trim().toLowerCase()) score += 100;
+  else if (name.startsWith(stem)) score += 80;
+  else if (new RegExp(`\\b${stem.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`).test(name)) score += 60;
+  else if (name.includes(stem)) score += 50;
+  const range = `${item.subcategories?.name ?? ""} ${item.categories?.name ?? ""}`.toLowerCase();
+  if (range.includes(stem)) score += 30;
+  if ((item.keywords ?? "").toLowerCase().includes(stem)) score += 15;
+  if ((item.short_description ?? "").toLowerCase().includes(stem)) score += 5;
+  if (score && item.is_featured) score += 2;
+  return score;
 }

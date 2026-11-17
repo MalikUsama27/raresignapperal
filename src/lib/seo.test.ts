@@ -31,3 +31,15 @@ test("legacy subcategory spelling retains its existing database record", () => {
   assert.equal(permanentRedirect("https://raresignsapparel.com/category/outdoor-wear/puffer-jackts?ref=google"), "https://raresignsapparel.com/category/outdoor-wear/puffer-jackets?ref=google");
   assert.equal(storedSubcategorySlug("puffer-jackets"), "puffer-jackts");
 });
+test("old Lovable address permanently moves to the official domain", () => {
+  assert.equal(permanentRedirect("https://raresignapperal.lovable.app/products?x=1"), "https://raresignsapparel.com/products?x=1");
+});
+
+test("product search puts name matches above description matches", async () => {
+  const { searchScore, searchStem } = await import("./seo");
+  assert.equal(searchStem("Jerseys"), "jersey");
+  assert.equal(searchStem("hoodies"), "hoodie");
+  const byName = searchScore({ name: "Basketball Uniforms", short_description: "" }, "basketball");
+  const byText = searchScore({ name: "Training Kits", short_description: "great for basketball" }, "basketball");
+  assert.ok(byName > byText);
+});

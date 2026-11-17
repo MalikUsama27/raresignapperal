@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Check, MessageCircle, Package, Palette, Truck } from "lucide-react";
 import { productQuery } from "@/lib/queries";
 import { canonical, COMPANY_NAME } from "@/lib/site";
-import { absoluteImageUrl, seoDescription, seoTitle, breadcrumbSchema } from "@/lib/seo";
+import { absoluteImageUrl, seoDescription, breadcrumbSchema, productTitle, b2bDescription } from "@/lib/seo";
 import { productWhatsappMessage, whatsappLink } from "@/lib/whatsapp";
 import { InquiryDialog } from "@/components/site/InquiryDialog";
 import { ProductCard } from "@/components/site/ProductCard";
@@ -23,8 +23,8 @@ export const Route = createFileRoute("/products/$slug")({
       material: p.material,
       category: p.categories?.name ?? null,
       image: p.image_url,
-      seo: p.seo_description ?? p.short_description,
-      seoTitle: p.seo_title ?? `${p.name} Manufacturer & Exporter | Rare Signs Apparel`,
+      seo: p.seo_description ?? b2bDescription(p.name),
+      seoTitle: p.seo_title,
       keywords: p.keywords || [p.name, `custom ${p.name}`, `${p.name} manufacturer`, `wholesale ${p.name}`, `${p.categories?.name ?? "sportswear"} exporter`, "Sialkot sportswear manufacturer"].map((k) => k.toLowerCase()).join(", "),
     };
   },
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/products/$slug")({
     const url = canonical(`/products/${loaderData.slug}`);
     const image = loaderData.image ? absoluteImageUrl(loaderData.image) : null;
     const description = seoDescription(loaderData.name, loaderData.seo);
-    const title = seoTitle(loaderData.name, loaderData.seoTitle);
+    const title = productTitle(loaderData.name, loaderData.seoTitle);
 
     return {
       meta: [

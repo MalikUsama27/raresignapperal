@@ -43,3 +43,12 @@ test("product search puts name matches above description matches", async () => {
   const byText = searchScore({ name: "Training Kits", short_description: "great for basketball" }, "basketball");
   assert.ok(byName > byText);
 });
+
+import { b2bTitle, productTitle } from "./seo";
+test("product titles carry buyer-intent keywords within 60 chars", () => {
+  const t = b2bTitle("Elite Full Zip Hoodie");
+  assert.ok(t.length <= 60 && /manufacturer/i.test(t) && t.includes("Elite Full Zip Hoodie"), t);
+  assert.ok(b2bTitle("Professional Sublimated Ice Hockey Jerseys Premium").length <= 60);
+  assert.equal(productTitle("Hoodie", "Hoodie Manufacturer UK | Rare Signs Apparel"), "Hoodie Manufacturer UK | Rare Signs Apparel");
+  assert.match(productTitle("Hoodie", "Hoodie | Export"), /Custom Hoodie Manufacturer/);
+});

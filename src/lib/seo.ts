@@ -99,3 +99,22 @@ export function searchScore(item: Rankable, term: string) {
   if (score && item.is_featured) score += 2;
   return score;
 }
+
+/** Buyer-intent title (custom/manufacturer/wholesale) that fits 60 chars; admin titles still win via seoTitle. */
+export function b2bTitle(name: string, kind: "product" | "range" = "product") {
+  const n = name.trim();
+  const candidates = kind === "product"
+    ? [`Custom ${n} Manufacturer & Wholesale | ${COMPANY_NAME}`, `Custom ${n} Manufacturer | ${COMPANY_NAME}`, `${n} Manufacturer | ${COMPANY_NAME}`, `Custom ${n} Manufacturer & Wholesale Supplier`, `Custom ${n} Manufacturer`]
+    : [`Custom ${n} Manufacturer & Wholesale | ${COMPANY_NAME}`, `${n} Manufacturer & Wholesale | ${COMPANY_NAME}`, `${n} Manufacturer | ${COMPANY_NAME}`, `Custom ${n} Manufacturer & Supplier`];
+  return candidates.find((c) => c.length <= 60) ?? shorten(`${n} | ${COMPANY_NAME}`, 60);
+}
+
+export function b2bDescription(name: string) {
+  return shorten(`Custom ${name} manufacturer & wholesale supplier in Sialkot, Pakistan. Your logo, colours and fabric, factory-direct pricing, worldwide export. Get a quote.`, 160);
+}
+
+/** Admin-set title when present and valid, otherwise the buyer-intent title. */
+export function productTitle(name: string, admin?: string | null, kind: "product" | "range" = "product") {
+  const clean = admin ? cleanMetadata(admin) : "";
+  return clean.length <= 60 && /manufacturer/i.test(clean) && clean.includes(COMPANY_NAME) ? clean : b2bTitle(name, kind);
+}

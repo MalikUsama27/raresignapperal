@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { productsQuery, subcategoryQuery } from "@/lib/queries";
-import { seoTitle, seoDescription } from "@/lib/seo";
+import { seoDescription, productTitle, b2bDescription } from "@/lib/seo";
 import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
 import { ProductCard, ProductCardSkeleton } from "@/components/site/ProductCard";
 import { Breadcrumbs, CtaSection } from "@/components/site/PageShell";
@@ -19,8 +19,8 @@ export const Route = createFileRoute("/category/$category/$subcategory")({
     return {
       name: data.subcategory.name,
       category: data.category.name,
-      seo: seoDescription(data.subcategory.name, data.subcategory.seo_description ?? data.subcategory.description),
-      seoTitle: seoTitle(data.subcategory.name, data.subcategory.seo_title),
+      seo: seoDescription(data.subcategory.name, data.subcategory.seo_description ?? b2bDescription(data.subcategory.name)),
+      seoTitle: productTitle(data.subcategory.name, data.subcategory.seo_title, "range"),
       path: `/category/${data.category.slug}/${data.subcategory.slug}`,
     };
   },

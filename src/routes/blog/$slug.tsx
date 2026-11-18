@@ -9,6 +9,7 @@ import { GENERAL_WHATSAPP_MESSAGE, whatsappLink } from "@/lib/whatsapp";
 import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
 import { absoluteImageUrl, breadcrumbSchema, seoTitle, seoDescription } from "@/lib/seo";
 import { formatDate } from "./index";
+import { featuredProductsFor } from "@/lib/blog-products";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ context, params }) => {
@@ -129,6 +130,23 @@ function BlogPostPage() {
               ))}
             </ul>
           ) : null}
+
+          <section className="mt-12 rounded-2xl border border-border bg-surface p-7">
+            <h2 className="font-display text-lg font-bold tracking-tight">Factory styles mentioned in this guide</h2>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {featuredProductsFor(post.slug).map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    to="/products/$slug"
+                    params={{ slug: p.slug }}
+                    className="group inline-flex items-center gap-2 text-sm text-primary underline-offset-4 hover:underline"
+                  >
+                    <ArrowRight className="size-3.5" /> {p.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
 
           <div className="mt-12 glass-panel rounded-2xl p-7">
             <h2 className="font-display text-lg font-bold tracking-tight">Planning a production run?</h2>

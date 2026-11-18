@@ -10,6 +10,7 @@ import { InquiryDialog } from "@/components/site/InquiryDialog";
 import { ProductCard } from "@/components/site/ProductCard";
 import { Breadcrumbs } from "@/components/site/PageShell";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
+import { b2bContentFor } from "@/lib/b2b-content";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: async ({ context, params }) => {
@@ -84,6 +85,7 @@ function ProductPage() {
   if (!data) return null;
   const { product, related } = data;
   const specs = (product.specifications ?? {}) as Record<string, string>;
+  const b2b = b2bContentFor(product.name, product.categories?.name);
   const images = [product.image_url, ...((product.gallery ?? []) as string[])].filter(
     (src, index, all): src is string => Boolean(src) && all.indexOf(src) === index,
   );
@@ -216,6 +218,35 @@ function ProductPage() {
           </div>
         </div>
       </section>
+
+      {b2b ? (
+        <section className="border-t border-border py-16 md:py-20">
+          <div className="container-page grid gap-12 lg:grid-cols-2">
+            <div className="rounded-2xl border border-border bg-surface p-6">
+              <h2 className="font-display text-lg font-semibold">Factory spec sheet</h2>
+              <dl className="mt-5 divide-y divide-border">
+                {b2b.specs.map(([key, value]) => (
+                  <div key={key} className="grid grid-cols-[8rem_1fr] gap-4 py-3 text-sm">
+                    <dt className="text-muted-foreground">{key}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div>
+              <h2 className="font-display text-xl font-semibold">Buyer questions</h2>
+              <div className="mt-5 space-y-3">
+                {b2b.faqs.map((f) => (
+                  <details key={f.q} className="group rounded-xl border border-border p-4">
+                    <summary className="cursor-pointer text-sm font-semibold">{f.q}</summary>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {related.length ? (
         <section className="border-t border-border bg-surface py-16 md:py-24">

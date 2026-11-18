@@ -59,3 +59,8 @@ test("image alt text carries buyer intent and brand", () => {
   assert.match(imageAlt("product", "Elite Hoodie", { index: 2 }), /back view/);
   assert.equal(imageAlt("category", "Tracksuits"), "Wholesale Tracksuits supplier – Rare Signs Apparel");
 });
+
+test("old Search Console 404 URLs redirect to live pages", () => {
+  assert.equal(permanentRedirect("https://raresignsapparel.com/products/rash-guards-pro-elite"), "https://raresignsapparel.com/products/rash-guards-elite");
+  assert.equal(permanentRedirect("https://raresignsapparel.com/blog/$slug"), "https://raresignsapparel.com/blog");
+});

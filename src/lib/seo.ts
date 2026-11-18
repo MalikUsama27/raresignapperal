@@ -51,6 +51,17 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
 const LEGACY_PATHS: Record<string, string> = {
   "/products/sports-wretling-singlets": "/products/sports-wrestling-singlets",
   "/category/outdoor-wear/puffer-jackts": "/category/outdoor-wear/puffer-jackets",
+  "/products/sleeveless-shirts-pro-elite": "/products/sleeveless-shirts-elite",
+  "/products/rash-guards-pro-elite": "/products/rash-guards-elite",
+  "/products/pro-elite-kids-track-field-wear": "/products/elite-kids-track-field-wear",
+  "/products/kids-training-wear-pro-elite": "/products/kids-training-wear-elite",
+  "/products/croptops-standard": "/products",
+  "/products/$slug": "/products",
+  "/products/%24slug": "/products",
+  "/blog/$slug": "/blog",
+  "/blog/%24slug": "/blog",
+  "/category/$category/$subcategory": "/products",
+  "/category/%24category/%24subcategory": "/products",
 };
 
 export function publicPath(path: string) { return LEGACY_PATHS[path] ?? path; }

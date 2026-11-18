@@ -7,7 +7,7 @@ Blog featured images should look like real photos from a working sportswear fact
 1. Replace only the 6 blog images I created earlier (private label, fabric guide, wholesale sourcing, bulk team uniforms, and the 2 newest posts). The 7 images you uploaded yourself from Admin stay as they are.
 2. Replace those with documentary-style photos: real factory floor light, slightly imperfect framing, workers' hands at sewing machines, fabric rolls, cutting tables, sublimation printers, packed cartons, finished hoodies/tracksuits/basketball kits on racks. No text, logos or faces close-up inside the image.
 3. Give the 2 newest posts (basketball bulk guide, winter hoodies & tracksuits guide) their own images instead of reused ones.
-4. If you send real photos from your factory, those are used first in place of new pictures — real photos build the most trust.
+4. No real photos are available, so new documentary-style factory photos are created.
 5. Improve each image's description (alt text) to describe what is actually shown.
 
 ## Not changed

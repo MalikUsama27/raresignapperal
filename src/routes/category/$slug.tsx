@@ -1,3 +1,4 @@
+import { imageAlt } from "@/lib/seo";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
@@ -71,7 +72,7 @@ function CategoryPage() {
         {category.image_url ? (
           <img
             src={category.image_url}
-            alt={category.name}
+            alt={imageAlt("category", category.name)}
             className="pointer-events-none absolute inset-0 size-full object-cover opacity-25"
           />
         ) : null}
@@ -102,7 +103,7 @@ function CategoryPage() {
                 >
                   <img
                     src={sub.image_url ?? category.image_url ?? "/images/cat-sportswear.jpg"}
-                    alt={sub.name}
+                    alt={imageAlt("category", sub.name)}
                     width={1200}
                     height={900}
                     loading="lazy"

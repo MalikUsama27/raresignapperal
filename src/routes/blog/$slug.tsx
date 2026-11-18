@@ -1,3 +1,4 @@
+import { imageAlt } from "@/lib/seo";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Clock, MessageCircle } from "lucide-react";
@@ -109,7 +110,7 @@ function BlogPostPage() {
           <div className="container-page max-w-4xl">
             <img
               src={post.cover_image_url}
-              alt={post.title}
+              alt={imageAlt("blog", post.title)}
               className="aspect-[16/8] w-full rounded-2xl border border-border object-cover"
             />
           </div>

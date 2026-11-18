@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { publicClient } from "@/lib/catalog.server";
 import { SITE_URL } from "@/lib/site";
-import { publicPath } from "@/lib/seo";
+import { absoluteImageUrl, publicPath } from "@/lib/seo";
 
-type Entry = { path: string; changefreq?: string; priority?: string; lastmod?: string };
+type Entry = { path: string; images?: string[]; changefreq?: string; priority?: string; lastmod?: string };
 
 const STATIC_ENTRIES: Entry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
@@ -38,10 +38,10 @@ export const Route = createFileRoute("/sitemap.xml")({
         const [categories, subcategories, products, posts] = await Promise.all([
           pages((from, to) => supabase.from("categories").select("id, slug").eq("is_active", true).order("id").range(from, to)),
           pages((from, to) => supabase.from("subcategories").select("slug, category_id").eq("is_active", true).order("id").range(from, to)),
-          pages((from, to) => supabase.from("products").select("slug, updated_at").eq("is_published", true).order("id").range(from, to)),
+          pages((from, to) => supabase.from("products").select("slug, updated_at, image_url, gallery").eq("is_published", true).order("id").range(from, to)),
           pages((from, to) => supabase
             .from("blog_posts")
-            .select("slug, updated_at")
+            .select("slug, updated_at, cover_image_url")
             .eq("is_published", true)
             .order("id").range(from, to)),
         ]);
@@ -67,12 +67,14 @@ export const Route = createFileRoute("/sitemap.xml")({
             changefreq: "monthly",
             priority: "0.7",
             lastmod: row.updated_at ?? undefined,
+            images: [row.image_url, ...(row.gallery ?? [])].filter((u): u is string => !!u),
           })),
           ...posts.map((row) => ({
             path: `/blog/${row.slug}`,
             changefreq: "monthly",
             priority: "0.6",
             lastmod: row.updated_at ?? undefined,
+            images: row.cover_image_url ? [row.cover_image_url] : [],
           })),
         ];
         const uniqueEntries = [...new Map(entries.map((entry) => [publicPath(entry.path), { ...entry, path: publicPath(entry.path) }])).values()];
@@ -80,7 +82,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const xml = [
           '<?xml version="1.0" encoding="UTF-8"?>',
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
           ...uniqueEntries.map((entry) =>
             [
               "  <url>",
@@ -88,6 +90,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               entry.lastmod ? `    <lastmod>${new Date(entry.lastmod).toISOString()}</lastmod>` : null,
               entry.changefreq ? `    <changefreq>${entry.changefreq}</changefreq>` : null,
               entry.priority ? `    <priority>${entry.priority}</priority>` : null,
+              ...[...new Set(entry.images ?? [])].slice(0, 10).map((u) => `    <image:image><image:loc>${escapeXml(absoluteImageUrl(u) ?? u)}</image:loc></image:image>`),
               "  </url>",
             ]
               .filter(Boolean)

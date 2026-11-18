@@ -118,3 +118,18 @@ export function productTitle(name: string, admin?: string | null, kind: "product
   const clean = admin ? cleanMetadata(admin) : "";
   return clean.length <= 60 && /manufacturer/i.test(clean) && clean.includes(COMPANY_NAME) ? clean : b2bTitle(name, kind);
 }
+
+const ALT_VIEWS = ["front view", "back view", "fabric and stitching detail", "branding detail"];
+/** Buyer-intent image alt text. Why: Google Images ranks on alt; B2B buyers search manufacturer/wholesale terms. */
+export function imageAlt(
+  kind: "product" | "category" | "blog",
+  name: string,
+  opts: { category?: string | null | undefined; index?: number | undefined } = {},
+): string {
+  const brand = "Rare Signs Apparel";
+  if (kind === "category") return `Wholesale ${name} supplier – ${brand}`;
+  if (kind === "blog") return `${name} – factory photo, ${brand}`;
+  const view = opts.index ? ` (${ALT_VIEWS[(opts.index - 1) % ALT_VIEWS.length]})` : "";
+  const cat = opts.category ? ` – ${opts.category}` : "";
+  return `Custom ${name} manufacturer${view}${cat} – ${brand}`;
+}

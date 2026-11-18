@@ -1,3 +1,4 @@
+import { imageAlt } from "@/lib/seo";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
@@ -55,7 +56,7 @@ export function ProductCard({ product, priority = false }: { product: ProductCar
         {images[0] ? (
           <FadeInImage
             src={images[0]}
-            alt={product.name}
+            alt={imageAlt("product", product.name)}
             width={1200}
             height={900}
             loading={priority ? "eager" : "lazy"}

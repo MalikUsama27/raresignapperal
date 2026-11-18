@@ -52,3 +52,10 @@ test("product titles carry buyer-intent keywords within 60 chars", () => {
   assert.equal(productTitle("Hoodie", "Hoodie Manufacturer UK | Rare Signs Apparel"), "Hoodie Manufacturer UK | Rare Signs Apparel");
   assert.match(productTitle("Hoodie", "Hoodie | Export"), /Custom Hoodie Manufacturer/);
 });
+
+import { imageAlt } from "./seo";
+test("image alt text carries buyer intent and brand", () => {
+  assert.equal(imageAlt("product", "Elite Hoodie", { category: "Hoodies" }), "Custom Elite Hoodie manufacturer – Hoodies – Rare Signs Apparel");
+  assert.match(imageAlt("product", "Elite Hoodie", { index: 2 }), /back view/);
+  assert.equal(imageAlt("category", "Tracksuits"), "Wholesale Tracksuits supplier – Rare Signs Apparel");
+});

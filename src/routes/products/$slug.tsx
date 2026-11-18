@@ -1,3 +1,4 @@
+import { imageAlt } from "@/lib/seo";
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -112,7 +113,7 @@ function ProductPage() {
 
           <div className="grid gap-12 lg:grid-cols-2">
             <Reveal>
-              <ProductGallery name={product.name} images={images} />
+              <ProductGallery name={product.name} category={product.categories?.name} images={images} />
             </Reveal>
 
             <div>
@@ -290,7 +291,7 @@ function Detail({
   );
 }
 
-function ProductGallery({ name, images }: { name: string; images: string[] }) {
+function ProductGallery({ name, category, images }: { name: string; category?: string | null; images: string[] }) {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -305,7 +306,7 @@ function ProductGallery({ name, images }: { name: string; images: string[] }) {
         <img
           key={images[active]}
           src={images[active]}
-          alt={name}
+          alt={imageAlt("product", name, { category, index: active })}
           width={1200}
           height={900}
           className="aspect-4/3 w-full animate-in fade-in object-cover duration-500"
@@ -326,7 +327,7 @@ function ProductGallery({ name, images }: { name: string; images: string[] }) {
             >
               <img
                 src={src}
-                alt={`${name} view ${index + 1}`}
+                alt={imageAlt("product", name, { category, index: index + 1 })}
                 loading="lazy"
                 className={`aspect-square w-full object-cover transition-opacity duration-300 ${
                   index === active ? "opacity-100" : "opacity-70 hover:opacity-100"

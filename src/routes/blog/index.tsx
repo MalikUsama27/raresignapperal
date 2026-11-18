@@ -1,3 +1,4 @@
+import { imageAlt } from "@/lib/seo";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
@@ -126,7 +127,7 @@ function BlogIndex() {
                 {lead.cover_image_url ? (
                   <img
                     src={lead.cover_image_url}
-                    alt={lead.title}
+                    alt={imageAlt("blog", lead.title)}
                     className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] lg:h-full"
                   />
                 ) : null}
@@ -159,7 +160,7 @@ function BlogIndex() {
                   {post.cover_image_url ? (
                     <img
                       src={post.cover_image_url}
-                      alt={post.title}
+                      alt={imageAlt("blog", post.title)}
                       loading="lazy"
                       className="h-44 w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     />

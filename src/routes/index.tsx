@@ -1,3 +1,4 @@
+import { imageAlt } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, BadgeCheck, Boxes, Factory, Globe2, Palette, ShieldCheck, Timer, Truck } from "lucide-react";
@@ -220,7 +221,7 @@ function Home() {
                   {category.image_url ? (
                     <img
                       src={category.image_url}
-                      alt={category.name}
+                      alt={imageAlt("category", category.name)}
                       width={1200}
                       height={900}
                       loading="lazy"

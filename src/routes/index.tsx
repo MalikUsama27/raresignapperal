@@ -248,9 +248,9 @@ function Home() {
       <section className="border-t border-border bg-surface py-20 md:py-28">
         <div className="container-page">
           <SectionHeading
-            eyebrow="Featured styles"
-            title="Best-selling export styles"
-            description={`A selection from ${data.productCount}+ catalogue styles, all built to order in your colours and branding.`}
+            eyebrow="In season now"
+            title="Basketball season & winter essentials"
+            description={`Basketball uniforms, hoodies and tracksuits for this season — picked from ${data.productCount}+ catalogue styles, all built to order in your colours and branding.`}
           />
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {data.featured.slice(0, 8).map((product, index) => (

@@ -50,7 +50,9 @@ export const getHomeContent = createServerFn({ method: "GET" }).handler(async ()
     supabase
       .from("products")
       .select(PRODUCT_CARD_FIELDS)
-      .eq("is_featured", true)
+      // Seasonal picks: basketball season + winter wear (hoodies, tracksuits).
+      .or("name.ilike.%basketball%,name.ilike.%hoodie%,name.ilike.%tracksuit%")
+      .order("is_featured", { ascending: false })
       .order("sort_order")
       .limit(8),
     supabase.from("export_countries").select("id, name, code, region, lat, lng").order("sort_order"),

@@ -11,7 +11,7 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timeout = setTimeout(() => setDebounced(term.trim()), 300);
+    const timeout = setTimeout(() => setDebounced(term.trim()), 1500);
     return () => clearTimeout(timeout);
   }, [term]);
 

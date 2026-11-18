@@ -16,3 +16,4 @@
 - Shared page introductions accept ReactNode descriptions so inline internal links preserve existing paragraph structure and styling.
 - Site search terms are logged server-side to public.search_logs (insert-only for visitors, admin-read) from listProducts page 1; why: admin needs popular and zero-result terms, which free-text analytics events cannot carry.
 - Product/category/range titles use `productTitle` (buyer-intent "Custom X Manufacturer…" formula); an admin SEO title wins only if it names "Manufacturer" and the brand. Why: B2B buyers search manufacturer/wholesale terms.
+- Country export pages live in `src/lib/country-markets.ts` (code, not DB) and render via `export-markets_.$country.tsx` (underscore keeps /export-markets a standalone page); why: fixed SEO landing content, no admin editing needed.

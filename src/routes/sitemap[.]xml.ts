@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { publicClient } from "@/lib/catalog.server";
 import { SITE_URL } from "@/lib/site";
+import { COUNTRY_MARKETS } from "@/lib/country-markets";
 import { absoluteImageUrl, publicPath } from "@/lib/seo";
 
 type Entry = { path: string; images?: string[]; changefreq?: string; priority?: string; lastmod?: string };
@@ -51,6 +52,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const entries: Entry[] = [
           ...STATIC_ENTRIES,
+          ...COUNTRY_MARKETS.map((m) => ({ path: `/export-markets/${m.slug}`, changefreq: "monthly", priority: "0.7" })),
           ...categoryRows.map((row) => ({
             path: `/category/${row.slug}`,
             changefreq: "weekly",

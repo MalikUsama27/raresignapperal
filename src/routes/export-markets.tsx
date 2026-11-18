@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { COUNTRY_MARKETS } from "@/lib/country-markets";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { exportCountriesQuery } from "@/lib/queries";
 import { CtaSection, PageHero } from "@/components/site/PageShell";
@@ -54,6 +55,19 @@ function ExportMarketsPage() {
       <section className="border-t border-border py-20 md:py-28">
         <div className="container-page">
           <WorldMap countries={countries} />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {COUNTRY_MARKETS.map((m) => (
+              <Link
+                key={m.slug}
+                to="/export-markets/$country"
+                params={{ country: m.slug }}
+                className="rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-primary/50"
+              >
+                <span className="block text-xs uppercase tracking-wider text-primary">Export guide</span>
+                <span className="mt-2 block font-display text-lg font-semibold">Sportswear for {m.name}</span>
+              </Link>
+            ))}
+          </div>
           <div className="mt-14 grid gap-6 md:grid-cols-2">
             {regions.map((region, index) => (
               <Reveal key={region} delay={index * 0.05} className="h-full">

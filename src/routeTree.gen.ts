@@ -35,6 +35,7 @@ import { Route as AdminSubcategoriesRouteImport } from './routes/admin/subcatego
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as CategorySlugRouteImport } from './routes/category/$slug'
+import { Route as ExportMarketsCountryRouteImport } from './routes/export-markets_.$country'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as ProductsSlugRouteImport } from './routes/products/$slug'
 import { Route as CategoryCategorySubcategoryRouteImport } from './routes/category/$category/$subcategory'
@@ -169,6 +170,11 @@ const CategorySlugRoute = CategorySlugRouteImport.update({
   path: '/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExportMarketsCountryRoute = ExportMarketsCountryRouteImport.update({
+  id: '/export-markets_/$country',
+  path: '/export-markets/$country',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsIndexRoute = ProductsIndexRouteImport.update({
   id: '/products/',
   path: '/products/',
@@ -211,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/admin/subcategories': typeof AdminSubcategoriesRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/export-markets/$country': typeof ExportMarketsCountryRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
@@ -241,6 +248,7 @@ export interface FileRoutesByTo {
   '/admin/subcategories': typeof AdminSubcategoriesRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/export-markets/$country': typeof ExportMarketsCountryRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
@@ -273,6 +281,7 @@ export interface FileRoutesById {
   '/admin/subcategories': typeof AdminSubcategoriesRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/export-markets_/$country': typeof ExportMarketsCountryRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/admin/subcategories'
     | '/blog/$slug'
     | '/category/$slug'
+    | '/export-markets/$country'
     | '/products/$slug'
     | '/admin/'
     | '/blog/'
@@ -336,6 +346,7 @@ export interface FileRouteTypes {
     | '/admin/subcategories'
     | '/blog/$slug'
     | '/category/$slug'
+    | '/export-markets/$country'
     | '/products/$slug'
     | '/admin'
     | '/blog'
@@ -367,6 +378,7 @@ export interface FileRouteTypes {
     | '/admin/subcategories'
     | '/blog/$slug'
     | '/category/$slug'
+    | '/export-markets_/$country'
     | '/products/$slug'
     | '/admin/'
     | '/blog/'
@@ -388,6 +400,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   CategorySlugRoute: typeof CategorySlugRoute
+  ExportMarketsCountryRoute: typeof ExportMarketsCountryRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
@@ -578,6 +591,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategorySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/export-markets_/$country': {
+      id: '/export-markets_/$country'
+      path: '/export-markets/$country'
+      fullPath: '/export-markets/$country'
+      preLoaderRoute: typeof ExportMarketsCountryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/': {
       id: '/products/'
       path: '/products'
@@ -650,6 +670,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
   CategorySlugRoute: CategorySlugRoute,
+  ExportMarketsCountryRoute: ExportMarketsCountryRoute,
   ProductsSlugRoute: ProductsSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,

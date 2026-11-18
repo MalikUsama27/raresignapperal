@@ -1,4 +1,5 @@
 import { imageAlt } from "@/lib/seo";
+import { countryMarket } from "@/lib/country-markets";
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -244,6 +245,22 @@ function ProductPage() {
                   </details>
                 ))}
               </div>
+              {b2b.markets?.length ? (
+                <p className="mt-5 text-sm text-muted-foreground">
+                  Exporting to:{" "}
+                  {b2b.markets.map((slug, i) => {
+                    const market = countryMarket(slug);
+                    return market ? (
+                      <span key={slug}>
+                        {i ? " · " : ""}
+                        <Link to="/export-markets/$country" params={{ country: slug }} className="text-primary hover:underline">
+                          {market.name}
+                        </Link>
+                      </span>
+                    ) : null;
+                  })}
+                </p>
+              ) : null}
             </div>
           </div>
         </section>

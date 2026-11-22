@@ -2,10 +2,11 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { productsQuery, subcategoryQuery } from "@/lib/queries";
-import { seoDescription, productTitle, b2bDescription } from "@/lib/seo";
+import { seoDescription, productTitle, b2bDescription, breadcrumbSchema } from "@/lib/seo";
 import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
 import { ProductCard, ProductCardSkeleton } from "@/components/site/ProductCard";
 import { Breadcrumbs, CtaSection } from "@/components/site/PageShell";
+import { SourcingGuideSection } from "@/components/site/SourcingGuideSection";
 
 export const Route = createFileRoute("/category/$category/$subcategory")({
   loader: async ({ context, params }) => {
@@ -19,6 +20,7 @@ export const Route = createFileRoute("/category/$category/$subcategory")({
     return {
       name: data.subcategory.name,
       category: data.category.name,
+      categorySlug: data.category.slug,
       seo: seoDescription(data.subcategory.name, data.subcategory.seo_description ?? b2bDescription(data.subcategory.name)),
       seoTitle: productTitle(data.subcategory.name, data.subcategory.seo_title, "range"),
       path: `/category/${data.category.slug}/${data.subcategory.slug}`,
@@ -26,7 +28,7 @@ export const Route = createFileRoute("/category/$category/$subcategory")({
   },
   head: ({ loaderData }) => ({
     links: loaderData ? [{ rel: "canonical", href: canonical(loaderData.path) }] : [],
-    scripts: loaderData ? [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "CollectionPage", name: loaderData.name, description: loaderData.seo, url: canonical(loaderData.path), isPartOf: { "@type": "WebSite", name: COMPANY_NAME, url: SITE_URL } }) }] : [],
+    scripts: loaderData ? [{ type: "application/ld+json", children: JSON.stringify(breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Products", path: "/products" }, { name: loaderData.category, path: `/category/${loaderData.categorySlug}` }, { name: loaderData.name, path: loaderData.path }])) }, { type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "CollectionPage", name: loaderData.name, description: loaderData.seo, url: canonical(loaderData.path), isPartOf: { "@type": "WebSite", name: COMPANY_NAME, url: SITE_URL } }) }] : [],
     meta: [
       ...(loaderData ? [{ property: "og:url", content: canonical(loaderData.path) }] : []),
       { property: "og:type", content: "website" },
@@ -90,6 +92,8 @@ function SubcategoryPage() {
           </div>
         </div>
       </section>
+
+      <SourcingGuideSection name={subcategory.name} parent={category.name} />
 
       <CtaSection />
     </>

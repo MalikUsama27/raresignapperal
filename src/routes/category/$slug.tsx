@@ -8,6 +8,7 @@ import { canonical, COMPANY_NAME, SITE_URL } from "@/lib/site";
 import { ProductCard, ProductCardSkeleton } from "@/components/site/ProductCard";
 import { Breadcrumbs, CtaSection } from "@/components/site/PageShell";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
+import { SourcingGuideSection } from "@/components/site/SourcingGuideSection";
 
 export const Route = createFileRoute("/category/$slug")({
   loader: async ({ context, params }) => {
@@ -144,6 +145,8 @@ function CategoryPage() {
           </div>
         </div>
       </section>
+
+      <SourcingGuideSection name={category.name} />
 
       <CtaSection />
     </>

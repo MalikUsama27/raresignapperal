@@ -13,13 +13,13 @@ const searchSchema = z.object({
   search: z.string().trim().max(120).optional(),
   category: z.string().trim().max(120).optional(),
   subcategory: z.string().trim().max(120).optional(),
-  sort: z.enum(["featured", "name", "newest"]).catch("featured"),
-  page: z.number().int().min(1).catch(1),
+  sort: z.enum(["featured", "name", "newest"]).optional().catch(undefined),
+  page: z.number().int().min(1).optional().catch(undefined),
 });
 
 export const Route = createFileRoute("/products/")({
   validateSearch: searchSchema,
-  loaderDeps: ({ search }) => ({ search: search.search, category: search.category, subcategory: search.subcategory, sort: search.sort, page: search.page }),
+  loaderDeps: ({ search }) => ({ search: search.search, category: search.category, subcategory: search.subcategory, sort: search.sort ?? "featured", page: search.page ?? 1 }),
   loader: async ({ context, deps }) => {
     await Promise.all([
       context.queryClient.ensureQueryData(navigationQuery()),
@@ -71,8 +71,8 @@ function ProductsPage() {
     ...(search.search ? { search: search.search } : {}),
     ...(search.category ? { category: search.category } : {}),
     ...(search.subcategory ? { subcategory: search.subcategory } : {}),
-    sort: search.sort,
-    page: search.page,
+    sort: search.sort ?? "featured",
+    page: search.page ?? 1,
     perPage: PER_PAGE,
   };
 
@@ -185,7 +185,7 @@ function ProductsPage() {
               <label className="flex items-center gap-2 text-sm text-muted-foreground">
                 Sort
                 <select
-                  value={search.sort}
+                  value={search.sort ?? "featured"}
                   onChange={(event) => update({ sort: event.target.value as "featured" | "name" | "newest" })}
                   className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
@@ -232,7 +232,7 @@ function ProductsPage() {
                         (page) =>
                           page === 1 ||
                           page === pages ||
-                          Math.abs(page - search.page) <= 1,
+                          Math.abs(page - (search.page ?? 1)) <= 1,
                       )
                       .map((page, index, list) => (
                         <span key={page} className="flex items-center gap-2">
@@ -244,7 +244,7 @@ function ProductsPage() {
                             search={(prev) => ({ ...prev, page }) as never}
                             className={cn(
                               "grid size-10 place-items-center rounded-md border text-sm transition-colors",
-                              page === search.page
+                              page === (search.page ?? 1)
                                 ? "border-primary bg-primary text-primary-foreground"
                                 : "border-border text-muted-foreground hover:text-foreground",
                             )}
